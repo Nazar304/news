@@ -1,0 +1,25 @@
+{{- /*
+Game card with Steam link. Image: <appid>.jpg in the page bundle (Steam header art).
+{{< game id="1426210" title="It Takes Two" dev="Hazelight Studios" year="2021" players="2" mode="Онлайн / один екран" >}}
+*/ -}}
+{{- $id := .Get "id" }}
+{{- $title := .Get "title" }}
+{{- $url := printf "https://store.steampowered.com/app/%s/" $id }}
+<div class="panel panel--low grid grid--12 grid--align-center">
+  <a class="span-md-5 media is-zoomable" href="{{ $url }}" target="_blank" rel="noopener" style="aspect-ratio: 460 / 215" aria-label="{{ $title }} у Steam">
+    {{- with .Page.Resources.Get (printf "%s.jpg" $id) }}
+    <img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="{{ $title }}" loading="lazy">
+    {{- end }}
+  </a>
+  <div class="span-md-7 stack stack--sm">
+    <div class="cluster cluster--lg meta">
+      {{- with .Get "dev" }}<div class="meta__pair"><span class="meta__key">Розробник</span><span class="meta__value">{{ . }}</span></div>{{ end }}
+      {{- with .Get "year" }}<div class="meta__pair"><span class="meta__key">Рік</span><span class="meta__value">{{ . }}</span></div>{{ end }}
+      {{- with .Get "players" }}<div class="meta__pair"><span class="meta__key">Гравці</span><span class="meta__value">{{ . }}</span></div>{{ end }}
+      {{- with .Get "mode" }}<div class="meta__pair"><span class="meta__key">Кооператив</span><span class="meta__value">{{ . }}</span></div>{{ end }}
+    </div>
+    <div>
+      <a class="btn btn--sm" href="{{ $url }}" target="_blank" rel="noopener">Відкрити в Steam <span class="icon icon--sm" aria-hidden="true">open_in_new</span></a>
+    </div>
+  </div>
+</div>

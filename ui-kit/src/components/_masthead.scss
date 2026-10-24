@@ -38,7 +38,51 @@
     align-items: center;
     justify-content: space-between;
     gap: space(md);
-    height: calc(var(--header-h) - 2rem - 1px);
+    height: calc(4rem - 1px);
+  }
+
+  // Optional third row with section links (.masthead--sections)
+  &--sections {
+    height: auto;
+  }
+
+  &__sections {
+    @include page-gutter;
+    display: flex;
+    align-items: center;
+    gap: space(xs);
+    height: 2.5rem;
+    border-top: 1px solid clr(surface-variant);
+    overflow-x: auto;
+    scrollbar-width: none;
+    white-space: nowrap;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    @include mq(lg) {
+      justify-content: space-between;
+    }
+  }
+
+  &__section-link {
+    @include label(md);
+    flex-shrink: 0;
+    padding: 0.25rem space(sm);
+    letter-spacing: 0.05em;
+    color: clr(on-surface);
+    @include transition(color, background-color);
+
+    &:hover {
+      background: clr(surface-container-high);
+    }
+
+    &.is-active,
+    &[aria-current='page'] {
+      background: clr(primary);
+      color: clr(on-primary);
+    }
   }
 
   &__brand {

@@ -33,6 +33,20 @@
   --ease: #{$transition-fast};
 }
 
+// Fixed header height by masthead variant:
+// edition 2rem + bar 4rem (default) · + sections 2.5rem · --compact drops the edition row
+:root:has(.masthead--sections) {
+  --header-h: 8.5rem;
+}
+
+:root:has(.masthead--compact) {
+  --header-h: 4rem;
+}
+
+:root:has(.masthead--compact.masthead--sections) {
+  --header-h: 6.5rem;
+}
+
 @include mq(md) {
   :root {
     --page-margin: #{map.get($page-margin, md)};

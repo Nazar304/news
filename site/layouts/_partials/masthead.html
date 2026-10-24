@@ -1,9 +1,8 @@
 {{- $page := . }}
-<header class="masthead">
-  <div class="masthead__edition">
-    <div>{{ site.Params.city }} // {{ now.Format "2006.01.02" }} // ISSUE N° {{ site.Params.issue }}</div>
-    <div class="masthead__edition-aside"><span>{{ site.Params.edition }}</span><span>ARCHITECTURAL JOURNALISM</span></div>
-  </div>
+{{- $currentCat := "" }}
+{{- if eq .Kind "term" }}{{ $currentCat = .RelPermalink }}{{ end }}
+{{- with partial "term.html" (dict "page" . "tax" "categories") }}{{ $currentCat = .RelPermalink }}{{ end }}
+<header class="masthead masthead--compact masthead--sections">
   <div class="masthead__bar">
     <a class="masthead__brand" href="{{ "/" | relURL }}" aria-label="{{ site.Title }} — на головну">
       <span class="badge badge--md" aria-hidden="true">Z</span>
@@ -24,4 +23,11 @@
       <button class="btn btn--ghost btn--icon masthead__menu-toggle" type="button" data-menu-toggle aria-controls="site-nav" aria-expanded="false" aria-label="Меню"><span class="icon" aria-hidden="true">menu</span></button>
     </div>
   </div>
+  <nav class="masthead__sections" aria-label="Рубрики">
+    {{- with site.GetPage "/categories" }}
+      {{- range .Pages.ByWeight }}
+    <a class="masthead__section-link" href="{{ .RelPermalink }}"{{ if eq .RelPermalink $currentCat }} aria-current="page"{{ end }}>{{ .LinkTitle }}</a>
+      {{- end }}
+    {{- end }}
+  </nav>
 </header>

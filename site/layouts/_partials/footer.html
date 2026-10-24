@@ -11,9 +11,12 @@
     <nav class="site-footer__col" aria-label="Розділи видання">
       <div class="site-footer__heading">Розділи видання</div>
       <ul class="link-list">
-        {{- range site.Menus.footer }}
-        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+        {{- with site.GetPage "/categories" }}
+          {{- range .Pages.ByWeight }}
+        <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+          {{- end }}
         {{- end }}
+        <li><a href="{{ "/articles/" | relURL }}">Історичний реєстр</a></li>
       </ul>
     </nav>
     <nav class="site-footer__col" aria-label="Інституція">

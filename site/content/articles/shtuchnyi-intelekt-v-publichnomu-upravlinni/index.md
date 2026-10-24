@@ -7,7 +7,7 @@ kicker: Фокус // Інформатика
 format: Аналітичний звіт
 issue: 84
 readTime: 5
-categories: [tekhnolohii]
+categories: [polityka]
 authors: [yaroslav-vovk]
 tags: [Штучний інтелект, Держава, Регуляція]
 location: Київ / Брюссель

@@ -7,7 +7,7 @@ kicker: Культурний зсув
 format: Есей
 issue: 85
 readTime: 8
-categories: [kultura]
+categories: [mystetstvo]
 authors: [mariia-shevtsova]
 tags: [Фотографія, Друк, Матеріальна культура]
 location: Львів

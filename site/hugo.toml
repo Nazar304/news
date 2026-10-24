@@ -37,48 +37,20 @@ enableRobotsTXT = true
   [imaging.webp]
     quality = 80
 
+# The sections row under the masthead is generated from content/categories (ordered by weight).
 [menus]
   [[menus.main]]
     name = "Головне"
     pageRef = "/"
     weight = 10
   [[menus.main]]
-    name = "Урбаністика"
-    pageRef = "/categories/urbanistyka"
-    weight = 20
-  [[menus.main]]
-    name = "Технології"
-    pageRef = "/categories/tekhnolohii"
-    weight = 30
-  [[menus.main]]
-    name = "Культура"
-    pageRef = "/categories/kultura"
-    weight = 40
-  [[menus.main]]
     name = "Архів"
     pageRef = "/articles"
-    weight = 50
-
-  [[menus.footer]]
-    name = "Головні матеріали"
-    pageRef = "/"
-    weight = 10
-  [[menus.footer]]
-    name = "Урбаністика та простір"
-    pageRef = "/categories/urbanistyka"
     weight = 20
-  [[menus.footer]]
-    name = "Технологічні системи"
-    pageRef = "/categories/tekhnolohii"
+  [[menus.main]]
+    name = "Автори"
+    pageRef = "/authors"
     weight = 30
-  [[menus.footer]]
-    name = "Критична культура"
-    pageRef = "/categories/kultura"
-    weight = 40
-  [[menus.footer]]
-    name = "Історичний реєстр"
-    pageRef = "/articles"
-    weight = 50
 
   [[menus.institution]]
     name = "Коло авторів"

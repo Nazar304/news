@@ -8,7 +8,7 @@ kicker: Головний матеріал
 format: Аналітичний звіт
 issue: 87
 readTime: 6
-categories: [urbanistyka]
+categories: [znaty]
 authors: [oleksandr-hrynenko]
 tags: [Урбаністика, Архітектура, Модернізм]
 location: Київ / Роттердам

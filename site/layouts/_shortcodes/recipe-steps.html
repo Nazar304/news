@@ -1,0 +1,12 @@
+{{- /* Numbered cooking steps from front matter `recipe.steps` (same source as the Recipe JSON-LD).
+{{< recipe-steps title="Покроково" >}} */ -}}
+{{- with .Page.Params.recipe.steps }}
+<div class="panel stack stack--xs">
+  {{- with $.Get "title" }}<div class="panel__title">{{ . }}</div>{{ end }}
+  <ol class="numbered">
+    {{- range . }}
+    <li><span>{{ . | $.Page.RenderString }}</span></li>
+    {{- end }}
+  </ol>
+</div>
+{{- end }}

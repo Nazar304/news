@@ -136,6 +136,12 @@
     letter-spacing: 0.05em;
   }
 
+  // Single full-width image, natural 16:9
+  &--wide img {
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+
   // Caption as a black bar under the image
   &--bar {
     padding: 0;

@@ -1,0 +1,32 @@
+{{- /* Schema.org Recipe for rich results. Context: page with `recipe:` front matter. */ -}}
+{{- with .Params.recipe }}
+  {{- $p := $ }}
+  {{- $ingredients := slice }}
+  {{- range .ingredients }}{{ range .items }}{{ $ingredients = $ingredients | append . }}{{ end }}{{ end }}
+  {{- $steps := slice }}
+  {{- range .steps }}{{ $steps = $steps | append (dict "@type" "HowToStep" "text" .) }}{{ end }}
+  {{- $data := dict
+    "@context" "https://schema.org"
+    "@type" "Recipe"
+    "name" $p.Title
+    "description" $p.Params.lede
+    "datePublished" ($p.Date.Format "2006-01-02")
+    "recipeCategory" .category
+    "recipeCuisine" .cuisine
+    "recipeYield" (printf "%v порцій" .servings)
+    "prepTime" (printf "PT%vM" .prep)
+    "cookTime" (printf "PT%vM" .cook)
+    "totalTime" (printf "PT%vM" (add .prep .cook))
+    "recipeIngredient" $ingredients
+    "recipeInstructions" $steps
+    "keywords" (delimit $p.Params.tags ", ")
+  }}
+  {{- with partial "term.html" (dict "page" $p "tax" "authors") }}
+    {{- $data = merge $data (dict "author" (dict "@type" "Person" "name" .Title)) }}
+  {{- end }}
+  {{- with $p.Resources.GetMatch "cover.*" }}
+    {{- $img := .Fill "1200x900 Center jpg q80" }}
+    {{- $data = merge $data (dict "image" (slice $img.Permalink)) }}
+  {{- end }}
+<script type="application/ld+json">{{ $data | jsonify | safeJS }}</script>
+{{- end }}

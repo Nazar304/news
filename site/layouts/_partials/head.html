@@ -30,6 +30,7 @@
 {{- else }}
   {{- errorf "assets/css/main.css not found — run `npm run css` in site/" }}
 {{- end }}
+{{- partial "recipe-jsonld.html" . }}
 {{- range .AlternativeOutputFormats }}
 <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ site.Title }}">
 {{- end }}

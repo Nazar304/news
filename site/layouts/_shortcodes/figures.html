@@ -5,15 +5,17 @@ zhytlovyi-sektor.jpg | Рис. 01: житловий сектор
 trajektorii.jpg | Рис. 02: траєкторії руху
 {{< /figures >}}
 */ -}}
-<div class="grid grid--cols-2 grid--gap-md">
-  {{- range split (strings.TrimSpace .Inner) "\n" }}
+{{- $lines := split (strings.TrimSpace .Inner) "\n" }}
+<div class="grid {{ if gt (len $lines) 1 }}grid--cols-2 {{ end }}grid--gap-md">
+  {{- range $lines }}
     {{- $parts := split . "|" }}
     {{- $name := strings.TrimSpace (index $parts 0) }}
     {{- $caption := "" }}
     {{- if gt (len $parts) 1 }}{{ $caption = strings.TrimSpace (index $parts 1) }}{{ end }}
     {{- with $.Page.Resources.Get $name }}
-      {{- $img := .Fill "900x600 Center webp q75" }}
-  <figure class="figure">
+      {{- $single := eq (len $lines) 1 }}
+      {{- $img := .Fill (cond $single "1600x900 Center webp q80" "900x600 Center webp q75") }}
+  <figure class="figure{{ if $single }} figure--wide{{ end }}">
     <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="{{ $caption }}" loading="lazy">
     {{- with $caption }}<figcaption>{{ . }}</figcaption>{{ end }}
   </figure>

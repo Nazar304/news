@@ -1,0 +1,25 @@
+{{- /* Recipe summary from front matter `recipe:` — times, yield, ingredients. Context: page. */ -}}
+{{- with .Params.recipe }}
+<section class="panel panel--low panel--lg stack mb-lg" aria-labelledby="recipe-summary">
+  <div class="spread spread--wrap">
+    <h2 class="panel__title" id="recipe-summary">Коротко про рецепт</h2>
+    {{- with .difficulty }}<span class="badge badge--subtle">Складність: {{ . }}</span>{{ end }}
+  </div>
+  <div class="cluster cluster--lg meta">
+    {{- with .prep }}<div class="meta__pair"><span class="meta__key">Підготовка</span><span class="meta__value">{{ . }} хв</span></div>{{ end }}
+    {{- with .cook }}<div class="meta__pair"><span class="meta__key">Приготування</span><span class="meta__value">{{ . }} хв</span></div>{{ end }}
+    {{- if and .prep .cook }}<div class="meta__pair"><span class="meta__key">Разом</span><span class="meta__value">{{ add .prep .cook }} хв</span></div>{{ end }}
+    {{- with .servings }}<div class="meta__pair"><span class="meta__key">Порції</span><span class="meta__value">{{ . }}</span></div>{{ end }}
+  </div>
+  {{- range .ingredients }}
+  <div class="stack stack--xs">
+    {{- with .group }}<span class="checklist__heading">{{ . }}</span>{{ end }}
+    <ul class="checklist">
+      {{- range .items }}
+      <li><span class="icon" aria-hidden="true">check</span>{{ . }}</li>
+      {{- end }}
+    </ul>
+  </div>
+  {{- end }}
+</section>
+{{- end }}

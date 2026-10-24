@@ -5,8 +5,9 @@ initKit();
 // Archive: instant filter of rows on the current page
 const search = document.querySelector('[data-archive-search]');
 if (search) {
-  const rows = [...document.querySelectorAll('.index-table__row')];
+  const rows = [...document.querySelectorAll('[data-filter-item]')];
   const counter = document.querySelector('[data-archive-count]');
+  const empty = document.querySelector('[data-filter-empty]');
   const plural = (n) => {
     const m10 = n % 10;
     const m100 = n % 100;
@@ -23,6 +24,7 @@ if (search) {
       if (hit) visible += 1;
     });
     if (counter) counter.textContent = `Знайдено ${visible} ${plural(visible)}`;
+    if (empty) empty.hidden = visible > 0;
   });
 }
 

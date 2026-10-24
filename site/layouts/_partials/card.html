@@ -1,7 +1,7 @@
 {{- /* Article teaser card (4-col grid). Context: article page. */ -}}
 {{- $cat := partial "term.html" (dict "page" . "tax" "categories") }}
 {{- $author := partial "term.html" (dict "page" . "tax" "authors") }}
-<article class="card is-zoomable">
+<article class="card is-zoomable" data-filter-item>
   <div class="card__body" style="gap: var(--space-md)">
     <div class="media media--4x3">
       {{- with .Resources.GetMatch "cover.*" }}

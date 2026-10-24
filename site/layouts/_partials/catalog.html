@@ -1,32 +1,13 @@
-{{- /* Archive table + pager. Context: dict "pages" (Pages) "paginator" (Pager) */ -}}
+{{- /* Article cards with images + pager. Context: dict "pages" (Pages) "paginator" (Pager) */ -}}
 {{- $pager := .paginator }}
 <section class="section section--md">
   {{- if .pages }}
-  <div class="index-table">
-    <div class="index-table__head" aria-hidden="true">
-      <div class="index-table__c-date">Дата // випуск</div>
-      <div class="index-table__c-cat">Категорія</div>
-      <div class="index-table__c-main">Заголовок статті та тематичний тезис</div>
-      <div class="index-table__c-author">Автор</div>
-      <div class="index-table__c-size">Обсяг</div>
-    </div>
-    <div class="index-table__body">
-      {{- range .pages }}
-        {{- $cat := partial "term.html" (dict "page" . "tax" "categories") }}
-        {{- $author := partial "term.html" (dict "page" . "tax" "authors") }}
-      <a class="index-table__row" href="{{ .RelPermalink }}">
-        <div class="index-table__date"><strong>{{ .Date | time.Format "02.01.2006" }}</strong><span> // № {{ .Params.issue }}</span></div>
-        <div class="index-table__cat">{{ with $cat }}<span class="badge badge--variant">{{ .LinkTitle }}</span>{{ end }}</div>
-        <div class="index-table__main">
-          <h3 class="index-table__title">{{ .Title }}</h3>
-          <p class="index-table__thesis">{{ .Params.lede }}</p>
-        </div>
-        <div class="index-table__author">{{ with $author }}{{ .LinkTitle }}{{ end }}</div>
-        <div class="index-table__size">{{ or .Params.readTime .ReadingTime }} хв</div>
-      </a>
-      {{- end }}
-    </div>
+  <div class="grid grid--cols-3">
+    {{- range .pages }}
+      {{- partial "card.html" . }}
+    {{- end }}
   </div>
+  <p class="empty mt-lg" data-filter-empty hidden>Нічого не знайдено</p>
   {{- else }}
   <p class="empty">У цьому розділі ще немає матеріалів</p>
   {{- end }}

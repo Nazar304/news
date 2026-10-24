@@ -1,4 +1,6 @@
-baseURL = "http://localhost:1313/"
+# Relative base works on any host (pages.dev, custom domain, localhost).
+# Set HUGO_BASEURL=https://your-domain/ in CI once the domain is final (absolute canonical/OG URLs).
+baseURL = "/"
 locale = "uk"
 defaultContentLanguage = "uk"
 title = "ZEITPUNKT"

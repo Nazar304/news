@@ -1,7 +1,9 @@
 // Site stylesheet: the whole kit + a few site-only bridges.
 // Compiled by `npm run css` → assets/css/main.css (Hugo then minifies + fingerprints).
-@use 'pkg:@zeitpunkt/ui-kit' with ($font-path: '/fonts');
-@use 'pkg:@zeitpunkt/ui-kit/tools' as *;
+// Resolved through --load-path=.. (the monorepo root), so `sass --watch`
+// sees the real kit files and recompiles when they change.
+@use 'ui-kit/src/index' with ($font-path: '/fonts');
+@use 'ui-kit/src/tools' as *;
 
 // Hugo's {{ .TableOfContents }} → kit TOC look
 .toc #TableOfContents {

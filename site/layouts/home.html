@@ -1,24 +1,6 @@
 {{ define "main" }}
 {{- $articles := where site.RegularPages "Section" "articles" }}
 
-{{- /* Ticker */}}
-{{- with hugo.Data.ticker }}
-<div class="ticker ticker--animate">
-  <div class="ticker__lead">
-    <span class="badge">{{ .label }}</span>
-    <span class="ticker__updated">{{ .updated }}</span>
-  </div>
-  <div class="ticker__viewport">
-    <ul class="ticker__track">
-      {{- range .items }}
-      <li class="ticker__item"><span class="ticker__time">{{ .time }}</span>{{ .text }}</li>
-      {{- end }}
-    </ul>
-  </div>
-  <div class="ticker__aside"><span>{{ .aside }}</span><span>//</span><span>Архів N° {{ site.Params.issue }}</span></div>
-</div>
-{{- end }}
-
 {{- if $articles }}
   {{- $lead := index $articles 0 }}
   {{- with where $articles "Params.featured" true }}{{ $lead = index . 0 }}{{ end }}

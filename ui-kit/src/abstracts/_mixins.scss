@@ -54,9 +54,10 @@
   outline-offset: 2px;
 }
 
-/// Editorial monochrome photo treatment.
-@mixin mono-image($contrast: 1.25) {
-  filter: grayscale(1) contrast($contrast);
+/// Editorial photo treatment. Monochrome by default; an app switches it
+/// globally with `:root { --image-filter: none; }`.
+@mixin mono-image {
+  filter: var(--image-filter);
 }
 
 @mixin line-clamp($lines) {

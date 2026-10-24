@@ -5,6 +5,11 @@
 @use 'ui-kit/src/index' with ($font-path: '/fonts');
 @use 'ui-kit/src/tools' as *;
 
+// Photos in color (kit default is monochrome: grayscale(1) contrast(1.25))
+:root {
+  --image-filter: none;
+}
+
 // Hugo's {{ .TableOfContents }} → kit TOC look
 .toc #TableOfContents {
   ul {

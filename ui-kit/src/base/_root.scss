@@ -28,6 +28,7 @@
   --page-margin: #{map.get($page-margin, base)};
   --gutter: #{map.get($gutter, base)};
   --page-max: #{$page-max};
+  --image-filter: grayscale(1) contrast(1.25);
   --header-h: #{$header-height};
   --measure: #{$measure};
   --ease: #{$transition-fast};

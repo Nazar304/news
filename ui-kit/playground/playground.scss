@@ -9,7 +9,8 @@
   display: flex;
   gap: space(md);
   overflow-x: auto;
-  padding: space(sm) var(--page-margin);
+  padding-block: space(sm);
+  @include page-gutter;
   background: clr(surface-container-low);
   border-bottom: 1px solid clr(hairline);
   white-space: nowrap;

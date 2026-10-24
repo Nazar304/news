@@ -19,6 +19,9 @@ $breakpoints: (
 $page-margin: (base: 1rem, md: 2rem, lg: 4rem);
 $gutter: (base: 1.5rem, lg: 2.5rem);
 
+// Max width of page content; bands stay full-bleed, content centers inside.
+$page-max: 80rem;
+
 $grid-columns: 12;
 $header-height: 6rem;
 $measure: 48rem; // comfortable reading column

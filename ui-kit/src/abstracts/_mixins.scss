@@ -42,9 +42,10 @@
   text-transform: uppercase;
 }
 
-/// Horizontal page margins.
+/// Horizontal page margins. Background stays full-bleed; on wide screens
+/// the padding grows so content is centered and capped at --page-max.
 @mixin page-gutter {
-  padding-inline: var(--page-margin);
+  padding-inline: max(var(--page-margin), calc((100% - var(--page-max)) / 2));
 }
 
 /// Crisp rectangular focus ring, no glow.

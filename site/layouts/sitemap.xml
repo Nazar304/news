@@ -1,0 +1,18 @@
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+{{- range site.Pages }}
+  {{- if .Sitemap.Disable }}{{ continue }}{{ end }}
+  {{- /* Empty category/tag/author pages are thin content — keep them out */}}
+  {{- if and (in (slice "term" "taxonomy") .Kind) (eq (len .Pages) 0) }}{{ continue }}{{ end }}
+  <url>
+    <loc>{{ .Permalink }}</loc>
+    {{- if not .Lastmod.IsZero }}
+    <lastmod>{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" | safeHTML }}</lastmod>
+    {{- end }}
+    {{- with .Resources.GetMatch "cover.*" }}
+      {{- $img := .Fill "1200x630 Center jpg q80" }}
+    <image:image><image:loc>{{ $img.Permalink }}</image:loc></image:image>
+    {{- end }}
+  </url>
+{{- end }}
+</urlset>

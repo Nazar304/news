@@ -7,7 +7,7 @@
     "css": "sass --load-path=.. --no-source-map styles/main.scss assets/css/main.css",
     "css:watch": "sass --load-path=.. --no-source-map --watch --poll styles/main.scss assets/css/main.css",
     "dev": "npm run css && concurrently -k -n css,hugo -c gray,blue \"npm:css:watch\" \"hugo server --disableFastRender --port 1313\"",
-    "build": "npm run css && hugo --gc --minify"
+    "build": "npm run css && node scripts/build.mjs"
   },
   "dependencies": {
     "@zeitpunkt/ui-kit": "*"

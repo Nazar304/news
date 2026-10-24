@@ -4,6 +4,9 @@
 {{- $desc := or .Params.lede .Description site.Params.description }}
 <title>{{ $title }}</title>
 <meta name="description" content="{{ $desc | plainify }}">
+{{- if site.Params.noindex }}
+<meta name="robots" content="noindex, nofollow">
+{{- end }}
 <link rel="canonical" href="{{ .Permalink }}">
 <meta property="og:site_name" content="{{ site.Title }}">
 <meta property="og:title" content="{{ $title }}">

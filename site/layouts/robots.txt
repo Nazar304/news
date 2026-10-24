@@ -1,0 +1,9 @@
+User-agent: *
+{{- if site.Params.noindex }}
+Disallow: /
+{{- else }}
+Allow: /
+Disallow: /404.html
+
+Sitemap: {{ "sitemap.xml" | absURL }}
+{{- end }}

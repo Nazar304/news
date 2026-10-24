@@ -1,0 +1,43 @@
+@use '../tools' as *;
+
+// Author line: portrait + name (+ verified) + role
+.byline {
+  display: flex;
+  align-items: center;
+  gap: space(md);
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__name {
+    @include type(headline-sm);
+    display: inline-flex;
+    align-items: center;
+    gap: space(sm);
+    font-weight: 700;
+    color: clr(primary);
+
+    .icon {
+      --icon-size: 1rem;
+    }
+  }
+
+  &__role {
+    @include type(body-sm);
+    color: clr(secondary);
+  }
+
+  &__role--label {
+    @include label(sm);
+    color: clr(outline);
+  }
+
+  // Portrait above name (author bio card)
+  &--stacked {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: space(sm);
+  }
+}

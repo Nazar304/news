@@ -1,0 +1,73 @@
+// Site stylesheet: the whole kit + a few site-only bridges.
+// Compiled by `npm run css` → assets/css/main.css (Hugo then minifies + fingerprints).
+@use 'pkg:@zeitpunkt/ui-kit' with ($font-path: '/fonts');
+@use 'pkg:@zeitpunkt/ui-kit/tools' as *;
+
+// Hugo's {{ .TableOfContents }} → kit TOC look
+.toc #TableOfContents {
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: space(xs);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  ul ul {
+    margin-top: space(xs);
+    padding-left: space(sm);
+  }
+
+  a {
+    @include type(body-sm);
+    display: block;
+    padding-block: 0.25rem;
+    color: clr(on-surface-variant);
+    @include transition(color);
+
+    &:hover,
+    &.is-active {
+      color: clr(primary);
+    }
+
+    &.is-active {
+      font-weight: 600;
+    }
+  }
+}
+
+// Markdown output inside .prose
+.prose {
+  > blockquote:not([class]) {
+    padding-left: space(md);
+    border-left: 2px solid clr(primary);
+    @include type(body-lg);
+    font-style: italic;
+    color: clr(on-surface);
+  }
+
+  > hr {
+    margin-block: space(md);
+  }
+
+  code {
+    padding: 0.1em 0.3em;
+    background: clr(surface-container);
+    font-size: 0.9em;
+  }
+}
+
+// Archive client-side filter: hidden rows
+.index-table__row[hidden] {
+  display: none;
+}
+
+// Empty state
+.empty {
+  @include label(md);
+  padding: space(xl) space(md);
+  background: clr(surface-container-low);
+  color: clr(secondary);
+  text-align: center;
+}

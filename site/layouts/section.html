@@ -1,0 +1,10 @@
+{{ define "main" }}
+{{- $pages := .Pages.ByDate.Reverse }}
+{{- $pager := .Paginate $pages }}
+<section class="section">
+  <span class="eyebrow">Розділ</span>
+  <h1 class="headline">{{ .Title }}</h1>
+  {{- with .Params.lede }}<p class="lede">{{ . }}</p>{{ end }}
+</section>
+{{- partial "catalog.html" (dict "pages" $pager.Pages "paginator" $pager) }}
+{{ end }}

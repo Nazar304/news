@@ -1,0 +1,246 @@
+@use '../tools' as *;
+
+// Field = label + control + hint
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+
+  &__label {
+    @include label(sm);
+    color: clr(on-surface);
+  }
+
+  &__hint {
+    @include type(body-sm);
+    color: clr(secondary);
+  }
+
+  &__error {
+    @include type(body-sm);
+    color: clr(error);
+  }
+
+  &--grow {
+    flex: 1 1 auto;
+  }
+}
+
+// Text inputs, textarea, select
+.input {
+  @include type(body-sm);
+  display: block;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: space(sm) 0.75rem;
+  border: 1px solid clr(field-border);
+  border-radius: 0;
+  background: clr(surface-container-lowest);
+  color: clr(primary);
+  appearance: none;
+  @include transition(border-color, box-shadow, background-color);
+
+  &::placeholder {
+    color: clr(outline);
+    opacity: 1;
+  }
+
+  // 2px black focus without layout shift, no glow
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    border-color: clr(primary);
+    box-shadow: inset 0 0 0 1px clr(primary);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &[aria-invalid='true'] {
+    border-color: clr(error);
+  }
+
+  &--lg {
+    @include type(body-md);
+    min-height: 3rem;
+  }
+
+  // Borderless field on a tinted band (archive search)
+  &--flush {
+    border-color: transparent;
+    background: clr(surface);
+
+    &:focus {
+      border-color: transparent;
+      box-shadow: none;
+      background: clr(surface-container-lowest);
+    }
+  }
+
+  @at-root textarea#{&} {
+    min-height: 7rem;
+    resize: vertical;
+  }
+
+  @at-root select#{&} {
+    padding-right: 2.5rem;
+    background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+      linear-gradient(135deg, currentColor 50%, transparent 50%);
+    background-position: calc(100% - 1.125rem) 50%, calc(100% - 0.8125rem) 50%;
+    background-size: 0.3125rem 0.3125rem;
+    background-repeat: no-repeat;
+  }
+}
+
+// Input with leading icon
+.input-icon {
+  position: relative;
+
+  > .icon {
+    --icon-size: 1.125rem;
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: clr(on-surface-variant);
+    pointer-events: none;
+  }
+
+  > .input {
+    padding-left: 2.5rem;
+  }
+}
+
+// Square checkbox & radio
+.check {
+  @include type(body-sm);
+  display: inline-flex;
+  align-items: flex-start;
+  gap: space(sm);
+  color: clr(on-surface-variant);
+  cursor: pointer;
+
+  &__input {
+    appearance: none;
+    flex-shrink: 0;
+    display: grid;
+    place-content: center;
+    width: 1rem;
+    height: 1rem;
+    margin: 0.125rem 0 0;
+    border: 1px solid clr(primary);
+    border-radius: 0;
+    background: clr(surface-container-lowest);
+    cursor: pointer;
+
+    // checkmark
+    &[type='checkbox']::before {
+      content: '';
+      width: 0.375rem;
+      height: 0.625rem;
+      margin-top: -0.125rem;
+      border: solid clr(on-primary);
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg) scale(0);
+    }
+
+    &[type='checkbox']:checked {
+      background: clr(primary);
+
+      &::before {
+        transform: rotate(45deg) scale(1);
+      }
+    }
+
+    // inner square
+    &[type='radio']::before {
+      content: '';
+      width: 0.5rem;
+      height: 0.5rem;
+      background: clr(primary);
+      transform: scale(0);
+    }
+
+    &[type='radio']:checked::before {
+      transform: scale(1);
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+}
+
+// Large selectable rectangle (plan choice)
+.choice {
+  @include label(md);
+  display: flex;
+  align-items: center;
+  gap: space(sm);
+  padding: space(sm) 0.75rem;
+  background: clr(surface-container-low);
+  color: clr(primary);
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  outline: 1px solid transparent;
+  @include transition(background-color, outline-color);
+
+  &:hover {
+    background: clr(surface-container);
+  }
+
+  &:has(:checked) {
+    background: clr(surface-container-high);
+    outline-color: clr(primary);
+  }
+}
+
+// Email + submit in one row (newsletter)
+.inline-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: space(xs);
+
+  @include mq(sm) {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+
+  > .field,
+  > .input {
+    flex: 1 1 auto;
+  }
+
+  .btn {
+    min-height: 2.75rem;
+  }
+
+  &--lg .btn {
+    min-height: 3rem;
+  }
+}
+
+// Form-level feedback
+.alert {
+  @include type(body-sm);
+  display: flex;
+  align-items: center;
+  gap: space(sm);
+  padding: space(sm) 0.75rem;
+  background: clr(primary);
+  color: clr(on-primary);
+
+  &--subtle {
+    background: clr(surface-container);
+    color: clr(on-surface);
+  }
+
+  &--error {
+    background: clr(error-container);
+    color: clr(on-error-container);
+  }
+}

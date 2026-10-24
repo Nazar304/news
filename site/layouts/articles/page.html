@@ -1,0 +1,160 @@
+{{ define "main" }}
+{{- $cat := partial "term.html" (dict "page" . "tax" "categories") }}
+{{- $author := partial "term.html" (dict "page" . "tax" "authors") }}
+{{- $photo := false }}
+{{- with $author }}{{ with .Resources.GetMatch "photo.*" }}{{ $photo = . }}{{ end }}{{ end }}
+
+<div class="read-progress" data-read-progress="#article"><span class="read-progress__bar"></span></div>
+
+<article class="section section--lg" id="article">
+  {{- /* Utility bar */}}
+  <div class="panel panel--low panel--lg split mb-lg">
+    <div class="meta">
+      {{- with .Params.rubric }}<span class="badge badge--md">{{ . }}</span><span class="meta__sep">/</span>{{ end }}
+      <time class="meta__item" datetime="{{ .Date | time.Format "2006-01-02" }}">{{ .Date | time.Format ":date_long" }}</time>
+      <span class="meta__sep">/</span>
+      <span class="meta__item"><span class="icon" aria-hidden="true">schedule</span>{{ or .Params.readTime .ReadingTime }} хв читання</span>
+      {{- with .Params.issue }}<span class="meta__sep from-sm">/</span><span class="from-sm">Дослідження N° {{ . }}</span>{{ end }}
+    </div>
+    <div class="cluster cluster--xs">
+      <div class="btn-group">
+        <button class="btn" type="button" data-prose-size="-1" data-target="#article-body" aria-label="Зменшити розмір шрифту">A-</button>
+        <button class="btn" type="button" data-prose-size="1" data-target="#article-body" aria-label="Збільшити розмір шрифту">A+</button>
+      </div>
+      <button class="btn btn--subtle btn--sm" type="button" data-toggle aria-pressed="false"><span class="icon" aria-hidden="true">bookmark</span><span class="from-sm">В список</span></button>
+      <button class="btn btn--subtle btn--sm" type="button" data-share><span class="icon" aria-hidden="true">share</span><span class="from-sm" data-share-label>Поділитися</span></button>
+    </div>
+  </div>
+
+  {{- /* Headline */}}
+  <div class="grid grid--12 mb-xl">
+    <div class="span-lg-9">
+      <h1 class="headline">{{ .Title }}</h1>
+      <p class="lede">{{ .Params.lede }}</p>
+    </div>
+    <div class="span-lg-3 panel panel--low stack stack--sm" style="justify-content: flex-end">
+      {{- with $cat }}
+      <div class="meta meta__pair"><span class="meta__key">Рубрикаріум</span><a class="t-headline-sm t-bold t-upper c-primary" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></div>
+      {{- end }}
+      <div class="meta meta__pair"><span class="meta__key">Випуск</span><span class="meta__value">N° {{ .Params.issue }} / {{ .Date.Year }}</span></div>
+    </div>
+  </div>
+
+  {{- /* Byline */}}
+  {{- with $author }}
+  <div class="panel panel--low panel--lg split mb-xl">
+    <a class="byline" href="{{ .RelPermalink }}">
+      {{- with $photo }}{{ $p := .Fill "112x112 Center webp" }}<img class="portrait" src="{{ $p.RelPermalink }}" width="56" height="56" alt="">{{ end }}
+      <span class="byline__body">
+        <span class="byline__name">{{ .LinkTitle }}{{ if .Params.verified }} <span class="icon icon--filled" title="Верифікований автор" aria-hidden="true">verified</span>{{ end }}</span>
+        <span class="byline__role">{{ .Params.role }}</span>
+      </span>
+    </a>
+    <div class="cluster cluster--lg meta">
+      {{- with $.Params.location }}<div class="meta__pair"><span class="meta__key">Місто дослідження</span><span class="meta__value">{{ . }}</span></div>{{ end }}
+      {{- with $.Params.review }}<div class="meta__pair"><span class="meta__key">Рецензія</span><span class="meta__value">{{ . }}</span></div>{{ end }}
+    </div>
+  </div>
+  {{- end }}
+
+  {{- /* Lead image */}}
+  {{- with .Resources.GetMatch "cover.*" }}
+    {{- $img := .Fill "1920x1080 Center webp q80" }}
+  <figure class="media media--hero media--dark mb-xl">
+    <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="{{ $.Params.caption }}" fetchpriority="high">
+    <div class="media__overlay">
+      <figcaption class="media__overlay-text">{{ $.Params.caption }}</figcaption>
+      <span class="t-label-sm t-upper t-nowrap c-inverse-primary">{{ $.Params.credit }}</span>
+    </div>
+  </figure>
+  {{- end }}
+
+  {{- /* Body */}}
+  <div class="grid grid--12">
+    <aside class="span-lg-3 from-lg">
+      <div class="sticky stack stack--lg">
+        {{- if and (ne .Params.toc false) (gt (len .Fragments.Headings) 0) }}
+        <nav class="panel panel--low toc" aria-label="Зміст">
+          <div class="toc__title">Зміст дослідження</div>
+          {{ .TableOfContents }}
+        </nav>
+        {{- end }}
+        {{- with .Params.fact }}
+        <div class="panel fact">
+          <span class="eyebrow">Ключовий факт</span>
+          <p class="fact__text">{{ .text }}</p>
+          <span class="fact__source">Джерело: {{ .source }}</span>
+        </div>
+        {{- end }}
+      </div>
+    </aside>
+
+    <div class="span-lg-8 start-lg-4">
+      <div class="prose prose--dropcap" id="article-body">
+        {{ .Content }}
+      </div>
+      {{- with .GetTerms "tags" }}
+      <div class="tag-list mt-xl">
+        <span class="tag-list__label">Теги:</span>
+        {{- range . }}<a class="tag" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+      </div>
+      {{- end }}
+    </div>
+  </div>
+
+  {{- /* Author bio */}}
+  {{- with $author }}
+  <section class="panel panel--low panel--xl mt-xl">
+    <div class="grid grid--12">
+      <div class="span-md-3 byline byline--stacked">
+        {{- with $photo }}{{ $p := .Fill "192x192 Center webp" }}<img class="portrait portrait--lg" src="{{ $p.RelPermalink }}" width="96" height="96" alt="">{{ end }}
+        <div>
+          <div class="byline__name">{{ .LinkTitle }}</div>
+          <div class="byline__role byline__role--label">{{ .Params.role }}{{ with .Params.city }} / {{ . }}{{ end }}</div>
+        </div>
+      </div>
+      <div class="span-md-9 stack stack--between">
+        <p class="t-body-md t-relaxed c-secondary">{{ .Params.bio }}</p>
+        <div class="spread spread--wrap">
+          <a class="t-label-sm t-upper c-primary" href="{{ .RelPermalink }}">Публікації автора ({{ len .Pages }})</a>
+          <a class="btn" href="{{ .RelPermalink }}">Усі тексти автора</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  {{- end }}
+
+  {{- /* Related */}}
+  {{- $related := first 2 (site.RegularPages.Related .) }}
+  {{- if not $related }}{{ $related = first 2 (where (where site.RegularPages "Section" "articles") "Permalink" "ne" .Permalink) }}{{ end }}
+  {{- with $related }}
+  <section class="mt-xl">
+    <div class="section-head">
+      <h2 class="t-headline-md t-bold t-upper">Повʼязані матеріали з архіву</h2>
+      <a class="section-head__aside" href="{{ "/articles/" | relURL }}">Усі дослідження →</a>
+    </div>
+    <div class="grid grid--cols-2">
+      {{- range . }}
+        {{- $rcat := partial "term.html" (dict "page" . "tax" "categories") }}
+        {{- $rauthor := partial "term.html" (dict "page" . "tax" "authors") }}
+      <article class="card card--muted card--underline is-zoomable">
+        <div class="card__body" style="gap: var(--space-sm)">
+          <div class="media media--16x9 media--dark">
+            {{- with .Resources.GetMatch "cover.*" }}{{ $img := .Fill "960x540 Center webp q75" }}<img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="" loading="lazy">{{ end }}
+            {{- with $rcat }}<span class="badge media__badge">{{ .LinkTitle }}</span>{{ end }}
+          </div>
+          <div class="meta"><span>{{ .Date | time.Format ":date_long" }}</span><span class="meta__sep">•</span><span>{{ or .Params.readTime .ReadingTime }} хв читання</span></div>
+          <h3 class="card__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+          <p class="card__excerpt clamp-2">{{ .Params.lede }}</p>
+        </div>
+        <footer class="card__footer c-primary">
+          <span>{{ with $rauthor }}Автор: {{ .LinkTitle }}{{ end }}</span>
+          <span>Читати →</span>
+        </footer>
+      </article>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+</article>
+{{ end }}

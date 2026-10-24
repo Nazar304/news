@@ -1,0 +1,93 @@
+// Styles for the kit documentation page only (not shipped).
+@use '../src/tools' as *;
+
+.pg-nav {
+  @include label(sm);
+  position: sticky;
+  top: var(--header-h);
+  z-index: z(sticky);
+  display: flex;
+  gap: space(md);
+  overflow-x: auto;
+  padding: space(sm) var(--page-margin);
+  background: clr(surface-container-low);
+  border-bottom: 1px solid clr(hairline);
+  white-space: nowrap;
+
+  a:hover {
+    color: clr(primary);
+    text-decoration: underline;
+  }
+}
+
+.pg-block {
+  border-top: 1px solid clr(primary);
+}
+
+.pg-demo {
+  padding: space(lg);
+  background: clr(surface-container-lowest);
+  border: 1px solid clr(hairline);
+}
+
+.pg-code {
+  @include type(body-sm);
+  font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+  color: clr(on-surface-variant);
+}
+
+.pg-swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: space(xs);
+}
+
+.pg-swatch {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  border: 1px solid clr(hairline);
+  background: clr(surface-container-lowest);
+  cursor: copy;
+
+  &__chip {
+    height: 4rem;
+    border-bottom: 1px solid clr(hairline);
+  }
+
+  &__name {
+    @include label(sm);
+    padding: space(xs) space(sm) 0;
+    color: clr(primary);
+  }
+
+  &__value {
+    @include type(body-sm);
+    padding: 0 space(sm) space(xs);
+    font-family: ui-monospace, Consolas, monospace;
+    color: clr(secondary);
+  }
+}
+
+.pg-type-row {
+  display: grid;
+  gap: space(sm);
+  padding-block: space(md);
+  border-bottom: 1px solid clr(hairline);
+
+  @include mq(md) {
+    grid-template-columns: 12rem 1fr;
+    align-items: baseline;
+  }
+}
+
+.pg-space {
+  display: flex;
+  align-items: center;
+  gap: space(md);
+
+  &__bar {
+    height: 1rem;
+    background: clr(primary);
+  }
+}

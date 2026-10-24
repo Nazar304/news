@@ -1,0 +1,16 @@
+// Self-hosted fonts. Path is relative to the compiled CSS
+// (dist/ui-kit.css → ../fonts). Override when bundling elsewhere:
+//   @use 'pkg:@zeitpunkt/ui-kit' with ($font-path: '/assets/fonts');
+$font-path: '../fonts' !default;
+
+// Stardom by Indian Type Foundry — ITF Free Font License (see fonts/stardom/LICENSE-FFL.txt).
+// Latin only, so unicode-range keeps the browser from requesting it for Cyrillic text.
+@font-face {
+  font-family: 'Stardom';
+  src: url('#{$font-path}/stardom/Stardom-Regular.woff2') format('woff2'),
+    url('#{$font-path}/stardom/Stardom-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-024F, U+1E00-1EFF, U+2000-206F, U+20AC, U+2122, U+FB01-FB02;
+}

@@ -1,0 +1,15 @@
+{{ define "main" }}
+<section class="section">
+  <div class="grid grid--12 grid--align-baseline">
+    <div class="span-lg-8 stack">
+      <span class="badge" style="align-self: flex-start">Помилка 404</span>
+      <h1 class="headline" style="margin: 0">Документ не знайдено в реєстрі</h1>
+      <p class="lede">Можливо, матеріал переміщено до архіву або адреса введена з помилкою.</p>
+      <div class="cluster">
+        <a class="btn btn--lg" href="{{ "/" | relURL }}">На головну</a>
+        <a class="btn btn--outline btn--lg" href="{{ "/articles/" | relURL }}">Відкрити архів</a>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

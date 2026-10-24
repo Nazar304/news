@@ -1,0 +1,32 @@
+<footer class="site-footer">
+  <div class="site-footer__grid">
+    <div class="site-footer__about">
+      <div class="site-footer__brand">
+        <span class="site-footer__wordmark">{{ site.Title }}</span>
+        <span class="badge badge--outline">Est. {{ site.Params.founded }}</span>
+      </div>
+      <p class="site-footer__text">{{ site.Params.description }} Відданість суворій обʼєктивності, раціональній архітектурі тексту та інтелектуальній стриманості швейцарського модернізму.</p>
+      <span class="eyebrow">Друк / цифра / критичний архів</span>
+    </div>
+    <nav class="site-footer__col" aria-label="Розділи видання">
+      <div class="site-footer__heading">Розділи видання</div>
+      <ul class="link-list">
+        {{- range site.Menus.footer }}
+        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+        {{- end }}
+      </ul>
+    </nav>
+    <nav class="site-footer__col" aria-label="Інституція">
+      <div class="site-footer__heading">Інституція</div>
+      <ul class="link-list">
+        {{- range site.Menus.institution }}
+        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+        {{- end }}
+      </ul>
+    </nav>
+  </div>
+  <div class="site-footer__bottom">
+    <div>© {{ now.Year }} {{ site.Title }} Publishing Group. Всі права захищено.</div>
+    <div class="cluster cluster--md"><span>Шрифти: Hanken Grotesk / Inter / Stardom</span><span>Сітка: 12-col modular</span></div>
+  </div>
+</footer>

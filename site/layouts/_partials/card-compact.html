@@ -1,0 +1,16 @@
+{{- /* Sidebar "priority report" item. Context: article page. */ -}}
+{{- $cat := partial "term.html" (dict "page" . "tax" "categories") }}
+<article class="card card--compact card--link card--clamp">
+  <div class="card__body">
+    <div class="meta meta--spread">
+      {{- with $cat }}<span class="badge badge--subtle">{{ .LinkTitle }}</span>{{ end }}
+      <span>{{ .Date | time.Format "02.01" }} // {{ or .Params.readTime .ReadingTime }} хв</span>
+    </div>
+    <h3 class="card__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+    <p class="card__excerpt">{{ .Params.lede }}</p>
+  </div>
+  <div class="meta meta--spread">
+    <span>{{ or .Params.format "Аналітичний звіт" }}</span>
+    <span class="icon icon--sm" aria-hidden="true">chevron_right</span>
+  </div>
+</article>

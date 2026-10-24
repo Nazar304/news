@@ -1,0 +1,53 @@
+{{ define "main" }}
+<div class="ribbon">
+  <ol class="breadcrumb">
+    <li><a href="{{ "/" | relURL }}">Реєстр</a></li>
+    <li><span aria-current="page">{{ .Title }}</span></li>
+  </ol>
+  <span>{{ len .Pages }} позицій</span>
+</div>
+
+<section class="section">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">Покажчик</span>
+      <h1 class="section-head__title section-head__title--display">{{ .Title }}</h1>
+    </div>
+    {{- with .Params.lede }}<p class="section-head__lead">{{ . }}</p>{{ end }}
+  </div>
+
+  {{- if eq .Data.Plural "authors" }}
+  <div class="grid grid--cols-4">
+    {{- range .Pages }}
+    <article class="card card--muted card--flush is-zoomable">
+      <div class="media media--4x5">
+        {{- with .Resources.GetMatch "photo.*" }}{{ $p := .Fill "480x600 Center webp q75" }}<img src="{{ $p.RelPermalink }}" width="{{ $p.Width }}" height="{{ $p.Height }}" alt="" loading="lazy">{{ end }}
+        {{- with .Params.badge }}<span class="badge media__badge media__badge--bottom">{{ . }}</span>{{ end }}
+      </div>
+      <div class="card__content">
+        <div>
+          <h2 class="card__title t-upper"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+          <p class="t-label-sm t-upper c-secondary mt-xs">{{ .Params.role }}</p>
+          <p class="card__excerpt mt-xs clamp-3">{{ .Params.bio }}</p>
+        </div>
+        <span class="t-label-sm t-upper c-primary">Публікацій: {{ len .Pages }}</span>
+      </div>
+    </article>
+    {{- end }}
+  </div>
+  {{- else }}
+  <div class="grid grid--cols-3">
+    {{- range .Pages.ByTitle }}
+    <a class="card card--link" href="{{ .RelPermalink }}">
+      <div class="card__body">
+        <span class="eyebrow">{{ len .Pages }} матеріал{{ if eq (len .Pages) 1 }}{{ else if lt (len .Pages) 5 }}и{{ else }}ів{{ end }}</span>
+        <h2 class="card__title t-upper">{{ .Title }}</h2>
+        {{- with .Params.lede }}<p class="card__excerpt">{{ . }}</p>{{ end }}
+      </div>
+      <span class="card__footer"><span>Перейти до рубрики</span><span class="icon icon--sm" aria-hidden="true">arrow_forward</span></span>
+    </a>
+    {{- end }}
+  </div>
+  {{- end }}
+</section>
+{{ end }}

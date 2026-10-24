@@ -1,0 +1,114 @@
+{{ define "main" }}
+{{- $articles := where site.RegularPages "Section" "articles" }}
+
+{{- /* Ticker */}}
+{{- with hugo.Data.ticker }}
+<div class="ticker ticker--animate">
+  <div class="ticker__lead">
+    <span class="badge">{{ .label }}</span>
+    <span class="ticker__updated">{{ .updated }}</span>
+  </div>
+  <div class="ticker__viewport">
+    <ul class="ticker__track">
+      {{- range .items }}
+      <li class="ticker__item"><span class="ticker__time">{{ .time }}</span>{{ .text }}</li>
+      {{- end }}
+    </ul>
+  </div>
+  <div class="ticker__aside"><span>{{ .aside }}</span><span>//</span><span>Архів N° {{ site.Params.issue }}</span></div>
+</div>
+{{- end }}
+
+{{- if $articles }}
+  {{- $lead := index $articles 0 }}
+  {{- with where $articles "Params.featured" true }}{{ $lead = index . 0 }}{{ end }}
+  {{- $rest := $articles | complement (slice $lead) }}
+  {{- $leadCat := partial "term.html" (dict "page" $lead "tax" "categories") }}
+  {{- $leadAuthor := partial "term.html" (dict "page" $lead "tax" "authors") }}
+
+<section class="section section--lg">
+  <div class="grid grid--12">
+    <article class="card card--lead span-lg-8">
+      <div class="stack stack--sm">
+        <div class="meta meta--spread">
+          <div class="meta meta--tight">
+            <span class="badge">Головний матеріал</span>
+            {{- with $leadCat }}<span>//</span><a class="meta__strong" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+          </div>
+          <span>Читання: {{ or $lead.Params.readTime $lead.ReadingTime }} хв</span>
+        </div>
+        <h1 class="card__title"><a href="{{ $lead.RelPermalink }}">{{ $lead.Title }}</a></h1>
+        <p class="card__excerpt">{{ $lead.Params.lede }}</p>
+      </div>
+      {{- with $lead.Resources.GetMatch "cover.*" }}
+        {{- $img := .Fill "1600x900 Center webp q80" }}
+      <figure class="media media--16x9">
+        <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="{{ $lead.Params.caption }}">
+        <figcaption class="media__caption"><span>{{ $lead.Params.credit }}</span><span>{{ $lead.Params.captionAside }}</span></figcaption>
+      </figure>
+      {{- end }}
+      <footer class="card__footer">
+        <div class="meta meta--md">
+          {{- with $leadAuthor }}<span class="meta__strong">Текст: {{ .LinkTitle }}</span><span class="meta__sep">•</span><span>{{ .Params.role }}</span>{{ end }}
+        </div>
+        <a class="btn btn--link" href="{{ $lead.RelPermalink }}">Читати дослідження <span class="icon icon--sm icon--nudge" aria-hidden="true">arrow_forward</span></a>
+      </footer>
+    </article>
+
+    <aside class="span-lg-4 stack">
+      <div class="panel panel--bar spread">
+        <span class="panel__title">Пріоритетні звіти</span>
+        <span class="t-label-sm t-upper c-secondary">N° 01 — {{ printf "%02d" (len (first 3 $rest)) }}</span>
+      </div>
+      {{- range first 3 $rest }}
+        {{- partial "card-compact.html" . }}
+      {{- end }}
+    </aside>
+  </div>
+</section>
+
+<section class="section section--low">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">Розділ: тематичний зріз</span>
+      <h2 class="section-head__title">Тематичний реєстр аналітики</h2>
+    </div>
+    <a class="section-head__aside" href="{{ "/articles/" | relURL }}">Усі матеріали архіву →</a>
+  </div>
+  <div class="grid grid--cols-4">
+    {{- range first 4 $articles }}
+      {{- partial "card.html" . }}
+    {{- end }}
+  </div>
+</section>
+{{- end }}
+
+{{- with hugo.Data.feed }}
+<section class="section">
+  <div class="grid grid--12">
+    <div class="span-lg-3 stack stack--xs">
+      <span class="eyebrow">Хронологічний реєстр</span>
+      <h2 class="t-headline-md t-bold t-upper">Стрічка дня</h2>
+      <p class="t-body-sm c-on-surface-variant">Миттєва фіксація ключових подій за останні 24 години без субʼєктивних інтерпретацій.</p>
+      <span class="t-label-sm t-upper c-outline pt-md from-lg">Джерела: власні бюро / телеграфний пул</span>
+    </div>
+    <ol class="timeline span-lg-9">
+      {{- range . }}
+      <li class="timeline__item">
+        <div class="timeline__main">
+          <time class="timeline__time">{{ .time }}</time>
+          <div>
+            <h3 class="timeline__title">{{ .title }}</h3>
+            <p class="timeline__text">{{ .text }}</p>
+          </div>
+        </div>
+        <span class="timeline__tag">{{ .tag }}</span>
+      </li>
+      {{- end }}
+    </ol>
+  </div>
+</section>
+{{- end }}
+
+{{ partial "newsletter.html" . }}
+{{ end }}

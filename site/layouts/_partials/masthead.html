@@ -1,0 +1,27 @@
+{{- $page := . }}
+<header class="masthead">
+  <div class="masthead__edition">
+    <div>{{ site.Params.city }} // {{ now.Format "2006.01.02" }} // ISSUE N° {{ site.Params.issue }}</div>
+    <div class="masthead__edition-aside"><span>{{ site.Params.edition }}</span><span>ARCHITECTURAL JOURNALISM</span></div>
+  </div>
+  <div class="masthead__bar">
+    <a class="masthead__brand" href="{{ "/" | relURL }}" aria-label="{{ site.Title }} — на головну">
+      <span class="badge badge--md" aria-hidden="true">Z</span>
+      <span class="masthead__wordmark">{{ site.Title }}</span>
+    </a>
+    <nav class="masthead__nav" id="site-nav" aria-label="Розділи">
+      {{- range site.Menus.main }}
+        {{- $active := or ($page.IsMenuCurrent "main" .) ($page.HasMenuCurrent "main" .) }}
+        {{- with .Page }}
+          {{- if and (not $active) (ne .Kind "home") (eq .Section $page.Section) (eq .Kind "section") }}{{ $active = true }}{{ end }}
+        {{- end }}
+      <a class="masthead__link" href="{{ .URL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a>
+      {{- end }}
+    </nav>
+    <div class="masthead__actions">
+      <a class="btn btn--ghost btn--icon" href="{{ "/articles/" | relURL }}#search" aria-label="Пошук по архіву"><span class="icon" aria-hidden="true">search</span></a>
+      <a class="btn btn--sm masthead__cta" href="{{ "/" | relURL }}#newsletter">Розсилка</a>
+      <button class="btn btn--ghost btn--icon masthead__menu-toggle" type="button" data-menu-toggle aria-controls="site-nav" aria-expanded="false" aria-label="Меню"><span class="icon" aria-hidden="true">menu</span></button>
+    </div>
+  </div>
+</header>

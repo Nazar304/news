@@ -1,0 +1,93 @@
+@use 'sass:map';
+@use '../tokens' as t;
+@use 'functions' as f;
+
+/// Mobile-first media query: from breakpoint up.
+@mixin mq($bp) {
+  @if not map.has-key(t.$breakpoints, $bp) {
+    @error 'Unknown breakpoint `#{$bp}`.';
+  }
+  @media (min-width: map.get(t.$breakpoints, $bp)) {
+    @content;
+  }
+}
+
+/// Below breakpoint.
+@mixin mq-below($bp) {
+  @if not map.has-key(t.$breakpoints, $bp) {
+    @error 'Unknown breakpoint `#{$bp}`.';
+  }
+  @media (max-width: map.get(t.$breakpoints, $bp) - 0.02px) {
+    @content;
+  }
+}
+
+/// Apply a type style from the scale (responsive via CSS variables).
+/// @example @include type(headline-sm);
+@mixin type($name) {
+  @if not map.has-key(t.$type-scale, $name) {
+    @error 'Unknown type style `#{$name}`.';
+  }
+  $style: map.get(t.$type-scale, $name);
+  font-family: var(--font-#{map.get($style, family)});
+  font-size: var(--fs-#{$name});
+  line-height: var(--lh-#{$name});
+  letter-spacing: var(--ls-#{$name});
+  font-weight: var(--fw-#{$name});
+}
+
+/// Uppercase label (metadata, stamps, badges).
+@mixin label($size: sm) {
+  @include type(label-#{$size});
+  text-transform: uppercase;
+}
+
+/// Horizontal page margins.
+@mixin page-gutter {
+  padding-inline: var(--page-margin);
+}
+
+/// Crisp rectangular focus ring, no glow.
+@mixin focus-ring($color: f.clr(primary)) {
+  outline: 2px solid $color;
+  outline-offset: 2px;
+}
+
+/// Editorial monochrome photo treatment.
+@mixin mono-image($contrast: 1.25) {
+  filter: grayscale(1) contrast($contrast);
+}
+
+@mixin line-clamp($lines) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@mixin visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@mixin transition($props...) {
+  transition-property: $props;
+  transition-duration: 150ms;
+  transition-timing-function: ease;
+}
+
+/// Hover only on devices that actually hover.
+@mixin hover {
+  @media (hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+}

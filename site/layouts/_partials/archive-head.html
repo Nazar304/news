@@ -1,0 +1,64 @@
+{{- /* Masthead of archive-like lists. Context: dict "page" "title" "lede" "eyebrow" "pages" (all pages for stats) */ -}}
+{{- $page := .page }}
+{{- $all := .pages }}
+<div class="ribbon">
+  <ol class="breadcrumb">
+    <li><a href="{{ "/" | relURL }}">Реєстр</a></li>
+    {{- if ne $page.Kind "section" }}<li><a href="{{ "/articles/" | relURL }}">Архів</a></li>{{ end }}
+    <li><span aria-current="page">{{ $page.Title }}</span></li>
+  </ol>
+  <div class="cluster cluster--sm">
+    <span class="dot"></span>
+    <span>Оновлено: {{ site.Lastmod | time.Format ":date_long" }}</span>
+  </div>
+</div>
+
+<section class="section">
+  <div class="grid grid--12 grid--align-baseline">
+    <div class="span-lg-8 stack">
+      <span class="badge" style="align-self: flex-start">{{ .eyebrow }}</span>
+      <h1 class="headline" style="margin: 0">{{ .title }}</h1>
+      {{- with .lede }}<p class="lede">{{ . }}</p>{{ end }}
+    </div>
+    <div class="span-lg-4 stack">
+      {{- $years := $all.GroupByDate "2006" "asc" }}
+      {{- $max := 1 }}
+      {{- range $years }}{{ if gt (len .Pages) $max }}{{ $max = len .Pages }}{{ end }}{{ end }}
+      <div class="panel panel--low">
+        <div class="meta meta--spread mb-xs"><span>Загальний фонд</span><span class="meta__strong">{{ len $all }} текст{{ if eq (len $all) 1 }}{{ else if lt (len $all) 5 }}и{{ else }}ів{{ end }}</span></div>
+        <div class="bars">
+          {{- range $i, $y := $years }}
+          <span class="bars__bar{{ if eq $i (sub (len $years) 1) }} is-active{{ end }}" style="--h: {{ div (mul (len $y.Pages) 100) $max }}%" title="{{ $y.Key }}: {{ len $y.Pages }}"></span>
+          {{- end }}
+        </div>
+        <div class="bars__labels">
+          {{- range $i, $y := $years }}<span{{ if eq $i (sub (len $years) 1) }} class="is-active"{{ end }}>{{ $y.Key }}</span>{{ end }}
+        </div>
+      </div>
+      <div class="meta meta--spread"><span>Система класифікації: UDC 050</span><span>Hugo {{ hugo.Version }}</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--low section--md" id="search">
+  <div class="stack">
+    <div class="split">
+      <div class="input-icon grow max-lg">
+        <span class="icon" aria-hidden="true">search</span>
+        <label class="visually-hidden" for="archive-search">Пошук на сторінці</label>
+        <input class="input input--flush" id="archive-search" type="search" data-archive-search placeholder="ПОШУК ЗА НАЗВОЮ, АВТОРОМ АБО ТЕЗОЮ...">
+      </div>
+      <div class="cluster cluster--xs t-label-md t-upper bg-surface" style="padding: .5rem 1rem">
+        <span class="dot dot--sm"></span><span class="c-primary" data-archive-count>Знайдено {{ len $all }} матеріал{{ if eq (len $all) 1 }}{{ else if lt (len $all) 5 }}и{{ else }}ів{{ end }}</span>
+      </div>
+    </div>
+    <nav class="chip-group" aria-label="Рубрики">
+      <a class="chip" href="{{ "/articles/" | relURL }}"{{ if eq $page.Kind "section" }} aria-current="page"{{ end }}>Всі</a>
+      {{- range site.Taxonomies.categories.ByCount }}
+        {{- with .Page }}
+      <a class="chip" href="{{ .RelPermalink }}"{{ if eq .RelPermalink $page.RelPermalink }} aria-current="page"{{ end }}>{{ .LinkTitle }}</a>
+        {{- end }}
+      {{- end }}
+    </nav>
+  </div>
+</section>

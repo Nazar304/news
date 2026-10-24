@@ -1,0 +1,50 @@
+// International Editorial — monochrome palette (Material 3 role names, as in Stitch).
+// Every key becomes a CSS custom property: --color-<name>.
+
+$colors: (
+  // Ink
+  primary: #000000,
+  on-primary: #ffffff,
+  primary-container: #1b1b1b,
+  on-primary-container: #848484,
+  inverse-primary: #c6c6c6,
+
+  secondary: #5e5e5e,
+  on-secondary: #ffffff,
+  secondary-container: #e3e2e2,
+  on-secondary-container: #646464,
+
+  tertiary: #000000,
+  on-tertiary: #ffffff,
+  tertiary-container: #1b1b1b,
+  on-tertiary-container: #848484,
+
+  // Canvas & surfaces (lowest → highest)
+  background: #f9f9f9,
+  on-background: #1a1c1c,
+  surface: #f9f9f9,
+  surface-bright: #f9f9f9,
+  surface-dim: #dadada,
+  surface-container-lowest: #ffffff,
+  surface-container-low: #f3f3f4,
+  surface-container: #eeeeee,
+  surface-container-high: #e8e8e8,
+  surface-container-highest: #e2e2e2,
+  surface-variant: #e2e2e2,
+  on-surface: #1a1c1c,
+  on-surface-variant: #4c4546,
+  inverse-surface: #2f3131,
+  inverse-on-surface: #f0f1f1,
+
+  // Lines
+  outline: #7e7576,
+  outline-variant: #cfc4c5,
+  hairline: #e5e5e5,
+  field-border: #737373,
+
+  // Status (used sparingly)
+  error: #ba1a1a,
+  on-error: #ffffff,
+  error-container: #ffdad6,
+  on-error-container: #93000a,
+);

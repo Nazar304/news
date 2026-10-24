@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  {{- partial "head.html" . }}
+</head>
+<body>
+  <a class="visually-hidden" href="#main">До змісту</a>
+  {{- partial "masthead.html" . }}
+  <main class="page-main" id="main">
+    {{- block "main" . }}{{ end }}
+  </main>
+  {{- partial "footer.html" . }}
+  {{- $js := resources.Get "js/main.js" | js.Build (dict "minify" hugo.IsProduction "target" "es2020") | fingerprint }}
+  <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+</body>
+</html>

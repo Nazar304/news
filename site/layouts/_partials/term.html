@@ -1,0 +1,4 @@
+{{- /* First term of a taxonomy for a page. Usage: partial "term.html" (dict "page" . "tax" "categories") → Page or nil */ -}}
+{{- $term := false }}
+{{- with .page.GetTerms .tax }}{{ $term = index . 0 }}{{ end }}
+{{- return $term }}

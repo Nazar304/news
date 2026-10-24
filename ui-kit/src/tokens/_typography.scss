@@ -1,0 +1,26 @@
+// Type tokens. Base values are mobile; the `lg` map overrides them from the lg breakpoint up.
+// Each style becomes --fs-*, --lh-*, --ls-*, --fw-* custom properties (see base/_root.scss).
+
+$font-families: (
+  display: ('Hanken Grotesk', 'Helvetica Neue', Arial, sans-serif),
+  body: ('Inter', 'Helvetica Neue', Arial, sans-serif),
+  // Stardom has Latin only — Cyrillic falls through to Playfair Display (same didone feel).
+  serif: ('Stardom', 'Playfair Display', Georgia, 'Times New Roman', serif),
+  icon: ('Material Symbols Outlined'),
+);
+
+$type-scale: (
+  display-xl: (family: display, weight: 800, size: 40px, line: 44px, tracking: -0.03em,
+    lg: (size: 72px, line: 76px, tracking: -0.04em)),
+  display-lg: (family: display, weight: 700, size: 32px, line: 36px, tracking: -0.02em,
+    lg: (size: 52px, line: 56px, tracking: -0.03em)),
+  headline-lg: (family: display, weight: 600, size: 26px, line: 32px, tracking: -0.02em,
+    lg: (size: 36px, line: 42px)),
+  headline-md: (family: display, weight: 600, size: 24px, line: 30px, tracking: -0.015em),
+  headline-sm: (family: display, weight: 600, size: 19px, line: 25px, tracking: -0.01em),
+  body-lg: (family: body, weight: 400, size: 18px, line: 28px, tracking: -0.005em),
+  body-md: (family: body, weight: 400, size: 15px, line: 23px, tracking: 0em),
+  body-sm: (family: body, weight: 400, size: 13px, line: 19px, tracking: 0em),
+  label-md: (family: display, weight: 700, size: 11px, line: 14px, tracking: 0.08em),
+  label-sm: (family: display, weight: 600, size: 10px, line: 12px, tracking: 0.1em),
+);

@@ -1,0 +1,59 @@
+{{- /* Archive table + pager. Context: dict "pages" (Pages) "paginator" (Pager) */ -}}
+{{- $pager := .paginator }}
+<section class="section section--md">
+  {{- if .pages }}
+  <div class="index-table">
+    <div class="index-table__head" aria-hidden="true">
+      <div class="index-table__c-date">Дата // випуск</div>
+      <div class="index-table__c-cat">Категорія</div>
+      <div class="index-table__c-main">Заголовок статті та тематичний тезис</div>
+      <div class="index-table__c-author">Автор</div>
+      <div class="index-table__c-size">Обсяг</div>
+    </div>
+    <div class="index-table__body">
+      {{- range .pages }}
+        {{- $cat := partial "term.html" (dict "page" . "tax" "categories") }}
+        {{- $author := partial "term.html" (dict "page" . "tax" "authors") }}
+      <a class="index-table__row" href="{{ .RelPermalink }}">
+        <div class="index-table__date"><strong>{{ .Date | time.Format "02.01.2006" }}</strong><span> // № {{ .Params.issue }}</span></div>
+        <div class="index-table__cat">{{ with $cat }}<span class="badge badge--variant">{{ .LinkTitle }}</span>{{ end }}</div>
+        <div class="index-table__main">
+          <h3 class="index-table__title">{{ .Title }}</h3>
+          <p class="index-table__thesis">{{ .Params.lede }}</p>
+        </div>
+        <div class="index-table__author">{{ with $author }}{{ .LinkTitle }}{{ end }}</div>
+        <div class="index-table__size">{{ or .Params.readTime .ReadingTime }} хв</div>
+      </a>
+      {{- end }}
+    </div>
+  </div>
+  {{- else }}
+  <p class="empty">У цьому розділі ще немає матеріалів</p>
+  {{- end }}
+
+  {{- with $pager }}
+  <div class="pager mt-lg">
+    <div class="pager__status">
+      Показано {{ add (mul (sub .PageNumber 1) .PagerSize) 1 }}–{{ add (mul (sub .PageNumber 1) .PagerSize) (len .Pages) }} із {{ .TotalNumberOfElements }}
+      / сторінка {{ printf "%02d" .PageNumber }} із {{ printf "%02d" .TotalPages }}
+    </div>
+    {{- if gt .TotalPages 1 }}
+    <nav aria-label="Сторінки">
+      <ul class="pagination">
+        {{- with .Prev }}
+        <li><a class="pagination__item pagination__step" href="{{ .URL }}" aria-label="Попередня сторінка"><span class="icon" aria-hidden="true">chevron_left</span></a></li>
+        {{- end }}
+        {{- $cur := .PageNumber }}
+        {{- range .Pagers }}
+        <li><a class="pagination__item" href="{{ .URL }}"{{ if eq .PageNumber $cur }} aria-current="page"{{ end }}>{{ printf "%02d" .PageNumber }}</a></li>
+        {{- end }}
+        {{- with .Next }}
+        <li><a class="pagination__item pagination__step" href="{{ .URL }}" aria-label="Наступна сторінка"><span class="icon" aria-hidden="true">chevron_right</span></a></li>
+        {{- end }}
+      </ul>
+    </nav>
+    {{- end }}
+    <div class="pager__aside">Формат архіву: UTF-8 / HTML / RSS</div>
+  </div>
+  {{- end }}
+</section>

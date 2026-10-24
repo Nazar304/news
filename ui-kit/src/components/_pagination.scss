@@ -1,0 +1,84 @@
+@use '../tools' as *;
+
+.pagination {
+  @include label(md);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.5rem;
+    height: 2.5rem;
+    background: clr(surface);
+    color: clr(primary);
+    @include transition(background-color, color);
+
+    &:hover {
+      background: clr(surface-variant);
+    }
+
+    &.is-current,
+    &[aria-current='page'] {
+      background: clr(primary);
+      color: clr(on-primary);
+      font-weight: 700;
+    }
+  }
+
+  &__ellipsis {
+    padding-inline: space(xs);
+    color: clr(on-surface-variant);
+    font-weight: 700;
+  }
+
+  &__step {
+    padding-inline: space(sm);
+    margin-left: space(xs);
+
+    &:hover {
+      background: clr(primary);
+      color: clr(on-primary);
+    }
+
+    .icon {
+      --icon-size: 1.125rem;
+    }
+  }
+}
+
+// Status + pagination row
+.pager {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: space(md);
+  padding: space(md);
+  background: clr(surface-container-low);
+
+  @include mq(sm) {
+    flex-direction: row;
+  }
+
+  &__status {
+    @include label(sm);
+    color: clr(on-surface-variant);
+  }
+
+  &__aside {
+    @include label(sm);
+    display: none;
+    letter-spacing: 0.05em;
+    color: clr(on-surface-variant);
+
+    @include mq(lg) {
+      display: block;
+    }
+  }
+}

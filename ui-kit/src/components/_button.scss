@@ -1,0 +1,169 @@
+@use '../tools' as *;
+
+// Buttons: square, uppercase, no shadow. Colors driven by local custom properties.
+// .btn                primary — black, inverts on hover
+// .btn--outline       1px black border, fills on hover
+// .btn--subtle        grey container, fills black on hover
+// .btn--inverse       white on black sections
+// .btn--ghost         transparent, border appears on hover (icon actions)
+// .btn--link          text link with arrow
+.btn {
+  --btn-bg: #{clr(primary)};
+  --btn-fg: #{clr(on-primary)};
+  --btn-border: #{clr(primary)};
+  --btn-bg-hover: #{clr(surface)};
+  --btn-fg-hover: #{clr(primary)};
+  --btn-border-hover: #{clr(primary)};
+
+  @include label(md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: space(xs);
+  min-height: 2.5rem;
+  padding: space(sm) space(md);
+  border: 1px solid var(--btn-border);
+  border-radius: 0;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  @include transition(background-color, color, border-color);
+
+  &:hover {
+    background: var(--btn-bg-hover);
+    color: var(--btn-fg-hover);
+    border-color: var(--btn-border-hover);
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .icon {
+    --icon-size: 1.125rem;
+    @include transition(transform);
+  }
+
+  &:hover .icon--nudge {
+    transform: translateX(4px);
+  }
+
+  // Variants
+  &--outline {
+    --btn-bg: transparent;
+    --btn-fg: #{clr(primary)};
+    --btn-bg-hover: #{clr(primary)};
+    --btn-fg-hover: #{clr(on-primary)};
+  }
+
+  &--subtle {
+    --btn-bg: #{clr(surface-container-high)};
+    --btn-fg: #{clr(primary)};
+    --btn-border: transparent;
+    --btn-bg-hover: #{clr(primary)};
+    --btn-fg-hover: #{clr(on-primary)};
+    --btn-border-hover: transparent;
+  }
+
+  &--inverse {
+    --btn-bg: #{clr(surface-container-lowest)};
+    --btn-fg: #{clr(primary)};
+    --btn-border: transparent;
+    --btn-bg-hover: #{clr(surface-variant)};
+    --btn-fg-hover: #{clr(primary)};
+    --btn-border-hover: transparent;
+  }
+
+  &--ghost {
+    --btn-bg: transparent;
+    --btn-fg: #{clr(primary)};
+    --btn-border: transparent;
+    --btn-bg-hover: transparent;
+    --btn-fg-hover: #{clr(primary)};
+    --btn-border-hover: #{clr(primary)};
+  }
+
+  &--link {
+    --btn-bg: transparent;
+    --btn-fg: #{clr(primary)};
+    --btn-border: transparent;
+    --btn-bg-hover: transparent;
+    --btn-fg-hover: #{clr(secondary)};
+    --btn-border-hover: transparent;
+    min-height: 0;
+    padding: 0;
+    letter-spacing: 0.1em;
+  }
+
+  // Sizes
+  &--sm {
+    @include label(sm);
+    min-height: 2rem;
+    padding: space(xs) space(sm);
+  }
+
+  &--lg {
+    min-height: 3rem;
+    padding: 0.75rem space(lg);
+    letter-spacing: 0.1em;
+  }
+
+  &--block {
+    display: flex;
+    width: 100%;
+  }
+
+  // Label left, icon right (CTA in panels)
+  &--split {
+    justify-content: space-between;
+  }
+
+  // Square icon-only button
+  &--icon {
+    min-height: 0;
+    padding: space(xs);
+    aspect-ratio: 1;
+  }
+
+  // Pressed / toggled state (bookmark, active filters)
+  &.is-active,
+  &[aria-pressed='true'] {
+    --btn-bg: #{clr(primary)};
+    --btn-fg: #{clr(on-primary)};
+    --btn-border: #{clr(primary)};
+
+    .icon {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  }
+}
+
+// Joined group of small square buttons (reader A-/A+).
+.btn-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem space(xs);
+  background: clr(surface-container);
+
+  .btn {
+    --btn-bg: transparent;
+    --btn-fg: #{clr(on-surface)};
+    --btn-border: transparent;
+    --btn-bg-hover: #{clr(surface-bright)};
+    --btn-fg-hover: #{clr(on-surface)};
+    --btn-border-hover: transparent;
+    min-height: 1.75rem;
+    min-width: 1.75rem;
+    padding: 0;
+  }
+}

@@ -1,0 +1,7 @@
+{{- /* {{< pullquote cite="— Джерело" >}}Текст цитати{{< /pullquote >}} */ -}}
+<blockquote class="pullquote">
+  <p class="pullquote__text">{{ .Inner | strings.TrimSpace | .Page.RenderString }}</p>
+  {{- with .Get "cite" }}
+  <cite class="pullquote__cite">{{ . }}</cite>
+  {{- end }}
+</blockquote>

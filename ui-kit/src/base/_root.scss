@@ -1,0 +1,58 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:meta';
+@use '../tools' as *;
+
+// Emits every design token as a CSS custom property.
+:root {
+  @each $name, $value in $colors {
+    --color-#{$name}: #{$value};
+  }
+
+  @each $name, $value in $spacing {
+    --space-#{$name}: #{$value};
+  }
+
+  @each $name, $stack in $font-families {
+    --font-#{$name}: #{meta.inspect($stack)};
+  }
+
+  @each $name, $style in $type-scale {
+    $size: map.get($style, size);
+    --fs-#{$name}: #{rem($size)};
+    --lh-#{$name}: #{math.div(map.get($style, line), $size)};
+    --ls-#{$name}: #{map.get($style, tracking)};
+    --fw-#{$name}: #{map.get($style, weight)};
+  }
+
+  --page-margin: #{map.get($page-margin, base)};
+  --gutter: #{map.get($gutter, base)};
+  --header-h: #{$header-height};
+  --measure: #{$measure};
+  --ease: #{$transition-fast};
+}
+
+@include mq(md) {
+  :root {
+    --page-margin: #{map.get($page-margin, md)};
+  }
+}
+
+@include mq(lg) {
+  :root {
+    --page-margin: #{map.get($page-margin, lg)};
+    --gutter: #{map.get($gutter, lg)};
+
+    @each $name, $style in $type-scale {
+      $lg: map.get($style, lg);
+      @if $lg {
+        $size: map.get($lg, size);
+        --fs-#{$name}: #{rem($size)};
+        --lh-#{$name}: #{math.div(map.get($lg, line), $size)};
+        @if map.has-key($lg, tracking) {
+          --ls-#{$name}: #{map.get($lg, tracking)};
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "zeitpunkt",
+  "private": true,
+  "description": "ZEITPUNKT — monorepo: SCSS UI kit + Hugo static site",
+  "workspaces": [
+    "ui-kit",
+    "site"
+  ],
+  "scripts": {
+    "kit:dev": "npm run dev -w @zeitpunkt/ui-kit",
+    "kit:build": "npm run build -w @zeitpunkt/ui-kit",
+    "site:dev": "npm run dev -w @zeitpunkt/site",
+    "site:build": "npm run build -w @zeitpunkt/site",
+    "build": "npm run kit:build && npm run site:build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "allowScripts": {
+    "hugo-extended@0.168.0": true
+  }
+}

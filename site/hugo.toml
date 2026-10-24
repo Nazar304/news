@@ -1,0 +1,107 @@
+baseURL = "http://localhost:1313/"
+locale = "uk"
+defaultContentLanguage = "uk"
+title = "ZEITPUNKT"
+enableRobotsTXT = true
+
+[params]
+  description = "Міжнародний типографічний огляд незалежної думки, культури та політичної економії."
+  city = "KYIV"
+  issue = "402"
+  edition = "EDITION: DIGITAL / UKRAINE"
+  founded = "2024"
+
+[pagination]
+  pagerSize = 8
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+  author = "authors"
+
+[permalinks.page]
+  articles = "/articles/:contentbasename/"
+
+[markup.goldmark.parser.attribute]
+  block = true
+[markup.tableOfContents]
+  startLevel = 2
+  endLevel = 3
+
+[imaging]
+  resampleFilter = "Lanczos"
+  [imaging.jpeg]
+    quality = 80
+  [imaging.webp]
+    quality = 80
+
+[menus]
+  [[menus.main]]
+    name = "Головне"
+    pageRef = "/"
+    weight = 10
+  [[menus.main]]
+    name = "Урбаністика"
+    pageRef = "/categories/urbanistyka"
+    weight = 20
+  [[menus.main]]
+    name = "Технології"
+    pageRef = "/categories/tekhnolohii"
+    weight = 30
+  [[menus.main]]
+    name = "Культура"
+    pageRef = "/categories/kultura"
+    weight = 40
+  [[menus.main]]
+    name = "Архів"
+    pageRef = "/articles"
+    weight = 50
+
+  [[menus.footer]]
+    name = "Головні матеріали"
+    pageRef = "/"
+    weight = 10
+  [[menus.footer]]
+    name = "Урбаністика та простір"
+    pageRef = "/categories/urbanistyka"
+    weight = 20
+  [[menus.footer]]
+    name = "Технологічні системи"
+    pageRef = "/categories/tekhnolohii"
+    weight = 30
+  [[menus.footer]]
+    name = "Критична культура"
+    pageRef = "/categories/kultura"
+    weight = 40
+  [[menus.footer]]
+    name = "Історичний реєстр"
+    pageRef = "/articles"
+    weight = 50
+
+  [[menus.institution]]
+    name = "Коло авторів"
+    pageRef = "/authors"
+    weight = 10
+  [[menus.institution]]
+    name = "Рубрики"
+    pageRef = "/categories"
+    weight = 20
+  [[menus.institution]]
+    name = "Теги"
+    pageRef = "/tags"
+    weight = 30
+
+# Kit assets come straight from the workspace package — no copying.
+[module]
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
+  [[module.mounts]]
+    source = "../ui-kit/js"
+    target = "assets/js/kit"
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+  [[module.mounts]]
+    source = "../ui-kit/fonts"
+    target = "static/fonts"

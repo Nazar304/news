@@ -1,0 +1,82 @@
+@use 'sass:map';
+@use '../tools' as *;
+
+// 12-column asymmetric grid.
+// <div class="grid grid--12"><div class="span-lg-8">…</div><aside class="span-lg-4">…</aside></div>
+.grid {
+  display: grid;
+  gap: var(--gutter);
+  grid-template-columns: minmax(0, 1fr);
+
+  &--12 {
+    grid-template-columns: repeat($grid-columns, minmax(0, 1fr));
+
+    > * {
+      grid-column-end: span $grid-columns;
+    }
+  }
+
+  // Auto card grids: 1 → 2 (md) → N (lg)
+  @each $n in (2, 3, 4) {
+    &--cols-#{$n} {
+      @include mq(md) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      @include mq(lg) {
+        grid-template-columns: repeat($n, minmax(0, 1fr));
+      }
+    }
+  }
+
+  &--gap-xs {
+    gap: space(xs);
+  }
+
+  &--gap-sm {
+    gap: space(sm);
+  }
+
+  &--gap-md {
+    gap: space(md);
+  }
+
+  &--gap-base {
+    gap: map.get($gutter, base);
+  }
+
+  &--align-center {
+    align-items: center;
+  }
+
+  &--align-start {
+    align-items: start;
+  }
+
+  &--align-baseline {
+    align-items: baseline;
+  }
+}
+
+// Spans set only the end, starts set only the start — so `span-lg-8 start-lg-4` combine.
+@for $i from 1 through $grid-columns {
+  .span-#{$i} {
+    grid-column-end: span $i;
+  }
+}
+
+@each $bp, $_ in $breakpoints {
+  @include mq($bp) {
+    @for $i from 1 through $grid-columns {
+      .span-#{$bp}-#{$i} {
+        grid-column-end: span $i;
+      }
+    }
+
+    @for $i from 1 through $grid-columns {
+      .start-#{$bp}-#{$i} {
+        grid-column-start: $i;
+      }
+    }
+  }
+}

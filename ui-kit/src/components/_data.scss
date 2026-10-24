@@ -1,0 +1,162 @@
+@use '../tools' as *;
+
+// Big number callout (74% …)
+.stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: space(md);
+  margin-block: space(lg);
+  padding: space(lg);
+  background: clr(primary);
+  color: clr(on-primary);
+
+  @include mq(md) {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  &__eyebrow {
+    @include label(sm);
+    color: clr(surface-variant);
+  }
+
+  &__value {
+    @include type(display-xl);
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  &__label {
+    @include type(headline-sm);
+    max-width: 28rem;
+    color: clr(surface-container-high);
+  }
+
+  &__aside {
+    width: 100%;
+    padding: space(sm);
+    background: clr(tertiary-container);
+
+    @include mq(md) {
+      width: 12rem;
+      flex-shrink: 0;
+    }
+  }
+}
+
+// Labelled progress bars: <div class="meter" style="--value: 88%">
+.meter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  & + & {
+    margin-top: space(sm);
+  }
+
+  &__label {
+    @include label(sm);
+    display: flex;
+    justify-content: space-between;
+    gap: space(sm);
+  }
+
+  &__track {
+    height: 0.25rem;
+    background: clr(surface-variant);
+
+    &--lg {
+      height: 1rem;
+    }
+  }
+
+  &__fill {
+    display: block;
+    width: var(--value, 0%);
+    height: 100%;
+    background: clr(primary);
+  }
+
+  // On dark callouts
+  &--inverse &__label {
+    color: clr(surface-container);
+  }
+
+  &--inverse &__track {
+    background: clr(surface-container-highest);
+  }
+
+  &--inverse &__fill {
+    background: clr(surface-bright);
+  }
+}
+
+// Ratio bar: noise vs signal, fill on the right
+.ratio {
+  display: flex;
+  height: 1rem;
+  background: clr(surface-variant);
+
+  &__fill {
+    width: var(--value, 50%);
+    margin-left: auto;
+    background: clr(primary);
+  }
+}
+
+// Mini column chart: <div class="bars"><span class="bars__bar" style="--h: 40%">
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.25rem;
+  height: 2rem;
+
+  &__bar {
+    flex: 1;
+    height: var(--h, 50%);
+    background: clr(surface-variant);
+    @include transition(background-color);
+
+    &:hover,
+    &.is-active {
+      background: clr(primary);
+    }
+  }
+
+  &__labels {
+    @include label(sm);
+    display: flex;
+    justify-content: space-between;
+    margin-top: space(xs);
+    color: clr(on-surface-variant);
+
+    .is-active {
+      color: clr(primary);
+      font-weight: 700;
+    }
+  }
+}
+
+// Reading progress (sticky under masthead)
+.read-progress {
+  position: sticky;
+  top: var(--header-h);
+  z-index: z(sticky);
+  height: 0.25rem;
+  background: clr(surface-container-high);
+
+  &__bar {
+    display: block;
+    width: var(--progress, 0%);
+    height: 100%;
+    background: clr(primary);
+    transition: width 150ms linear;
+  }
+}

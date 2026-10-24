@@ -1,0 +1,70 @@
+@use '../tools' as *;
+
+// "Стрічка дня" — chronological news feed
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: space(xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: space(sm);
+    padding: space(md);
+    background: clr(surface-container-lowest);
+    @include transition(background-color);
+
+    &:hover {
+      background: clr(surface-container-low);
+    }
+
+    @include mq(sm) {
+      flex-direction: row;
+      align-items: baseline;
+    }
+  }
+
+  &__main {
+    display: flex;
+    align-items: baseline;
+    gap: space(md);
+  }
+
+  &__time {
+    @include label(md);
+    flex-shrink: 0;
+    padding: 0.125rem space(sm);
+    background: clr(surface-container);
+    color: clr(primary);
+  }
+
+  &__title {
+    @include type(headline-sm);
+    color: clr(primary);
+
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__text {
+    @include type(body-sm);
+    margin-top: 0.25rem;
+    color: clr(on-surface-variant);
+  }
+
+  &__tag {
+    @include label(sm);
+    flex-shrink: 0;
+    letter-spacing: 0.05em;
+    color: clr(secondary);
+
+    @include mq(sm) {
+      text-align: right;
+    }
+  }
+}

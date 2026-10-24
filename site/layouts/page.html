@@ -1,0 +1,12 @@
+{{ define "main" }}
+<article class="section">
+  <div class="wrap wrap--narrow">
+    {{- with .Params.eyebrow }}<span class="eyebrow eyebrow--dot eyebrow--md mb-md">{{ . }}</span>{{ end }}
+    <h1 class="headline">{{ .Title }}</h1>
+    {{- with .Params.lede }}<p class="lede mb-xl">{{ . }}</p>{{ end }}
+    <div class="prose">
+      {{ .Content }}
+    </div>
+  </div>
+</article>
+{{ end }}

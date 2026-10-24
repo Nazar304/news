@@ -1,0 +1,42 @@
+@use '../tools' as *;
+
+// In-article pull quote
+.pullquote {
+  margin: space(xl) 0;
+  padding: space(sm) space(md) space(sm) space(lg);
+  background: clr(surface-container-low);
+
+  &::before {
+    @include type(display-xl);
+    content: '“';
+    display: block;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1;
+    color: clr(primary);
+    user-select: none;
+  }
+
+  &__text {
+    @include type(headline-md);
+    margin: -1rem 0 space(xs);
+    font-weight: 700;
+    color: clr(primary);
+  }
+
+  &__cite {
+    @include label(sm);
+    display: block;
+    font-style: normal;
+    color: clr(outline);
+  }
+}
+
+// Large uppercase creed (manifesto)
+.creed {
+  @include type(display-lg);
+  margin: 0;
+  line-height: 1.25;
+  text-transform: uppercase;
+  color: clr(primary);
+}

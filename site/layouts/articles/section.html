@@ -1,0 +1,12 @@
+{{ define "main" }}
+{{- $pages := .Pages.ByDate.Reverse }}
+{{- $pager := .Paginate $pages }}
+{{- partial "archive-head.html" (dict
+  "page" .
+  "pages" $pages
+  "eyebrow" (printf "Індекс N° %d–%d" (index $pages.ByDate 0).Date.Year now.Year)
+  "title" "Архів та теми"
+  "lede" .Params.lede
+) }}
+{{- partial "catalog.html" (dict "pages" $pager.Pages "paginator" $pager) }}
+{{ end }}

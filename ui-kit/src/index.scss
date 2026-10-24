@@ -1,0 +1,12 @@
+// ZEITPUNKT UI kit — International Editorial
+//
+// Full build:   @use 'pkg:@zeitpunkt/ui-kit';
+//               @use 'pkg:@zeitpunkt/ui-kit' with ($font-path: '/fonts');
+// Tools only:   @use 'pkg:@zeitpunkt/ui-kit/tools' as *;
+
+@forward 'base/fonts' show $font-path;
+
+@use 'base';
+@use 'layout';
+@use 'components';
+@use 'utilities/utilities';

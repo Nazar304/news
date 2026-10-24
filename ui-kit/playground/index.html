@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ZEITPUNKT UI Kit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700;800;900&family=Inter:wght@400;500;600&family=Playfair+Display:wght@400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block">
+  <script type="module" src="./main.js"></script>
+</head>
+<body>
+
+<!-- ============ MASTHEAD ============ -->
+<header class="masthead">
+  <div class="masthead__edition">
+    <div>KYIV // 2025.02.24 // ISSUE N° 402</div>
+    <div class="masthead__edition-aside"><span>UI KIT v0.1</span><span>INTERNATIONAL EDITORIAL</span></div>
+  </div>
+  <div class="masthead__bar">
+    <a class="masthead__brand" href="#">
+      <span class="masthead__wordmark">ZEITPUNKT</span>
+      <span class="badge badge--outline">UI KIT</span>
+    </a>
+    <nav class="masthead__nav" aria-label="Розділи кіта">
+      <a class="masthead__link" href="#tokens" aria-current="page">Токени</a>
+      <a class="masthead__link" href="#atoms">Атоми</a>
+      <a class="masthead__link" href="#forms">Форми</a>
+      <a class="masthead__link" href="#cards">Картки</a>
+      <a class="masthead__link" href="#editorial">Редакційні</a>
+      <a class="masthead__link" href="#article">Стаття</a>
+    </nav>
+    <div class="masthead__actions">
+      <button class="btn btn--ghost btn--icon" type="button" aria-label="Пошук"><span class="icon" aria-hidden="true">search</span></button>
+      <a class="btn btn--sm masthead__cta" href="#forms">Розсилка</a>
+      <span class="avatar"><span class="icon" aria-hidden="true">person</span></span>
+      <button class="btn btn--ghost btn--icon masthead__menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-label="Меню"><span class="icon" aria-hidden="true">menu</span></button>
+    </div>
+  </div>
+</header>
+
+<main class="page-main">
+
+  <!-- Ticker -->
+  <div class="ticker ticker--animate">
+    <div class="ticker__lead">
+      <span class="badge">Екстрений брифінг</span>
+      <span class="ticker__updated">Оновлено 14:48 // Київ</span>
+    </div>
+    <div class="ticker__viewport">
+      <ul class="ticker__track">
+        <li class="ticker__item"><span class="ticker__time">14:20</span>ЄС затвердив остаточний регламент автономних систем критичної інфраструктури</li>
+        <li class="ticker__item"><span class="ticker__time">13:45</span>Національний банк фіксує рекордне сальдо технологічного експорту</li>
+        <li class="ticker__item"><span class="ticker__time">12:10</span>У Цюриху стартувала бієнале типографічного конструктивізму</li>
+      </ul>
+    </div>
+    <div class="ticker__aside"><span>Індекс стабільності: +1.4%</span><span>//</span><span>Архів N° 402</span></div>
+  </div>
+
+  <nav class="pg-nav" aria-label="Зміст">
+    <a href="#tokens">Кольори</a><a href="#type">Типографіка</a><a href="#spacing">Відступи</a>
+    <a href="#atoms">Кнопки</a><a href="#badges">Бейджі</a><a href="#filters">Фільтри</a>
+    <a href="#forms">Форми</a><a href="#cards">Картки</a><a href="#plans">Тарифи</a>
+    <a href="#editorial">Стрічка</a><a href="#index">Каталог</a><a href="#data">Дані</a><a href="#article">Стаття</a>
+  </nav>
+
+  <!-- ============ INTRO ============ -->
+  <section class="section">
+    <div class="grid grid--12 grid--align-baseline">
+      <div class="span-lg-8 stack">
+        <span class="eyebrow eyebrow--dot eyebrow--md">Дизайн-система видання</span>
+        <h1 class="headline">International Editorial</h1>
+        <p class="lede">SCSS-кіт для ZEITPUNKT: монохромна палітра, Hanken Grotesk + Inter, 12-колонкова сітка, нульові радіуси. Компоненти за БЕМ, токени як CSS-змінні.</p>
+      </div>
+      <div class="span-lg-4 panel panel--low stack stack--sm">
+        <div class="meta meta--spread"><span>Пакет</span><span class="meta__strong">@zeitpunkt/ui-kit</span></div>
+        <div class="meta meta--spread"><span>Сітка</span><span class="meta__strong">12-COL MODULAR</span></div>
+        <div class="meta meta--spread"><span>Радіус</span><span class="meta__strong">0PX</span></div>
+        <div class="meta meta--spread"><span>Serif</span><span class="meta__strong t-serif" style="font-size:1rem;letter-spacing:0">Stardom Regular</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TOKENS: COLORS ============ -->
+  <section class="section section--low pg-block" id="tokens">
+    <div class="section-head">
+      <div><span class="eyebrow">01 // Токени</span><h2 class="section-head__title">Кольори</h2></div>
+      <div class="section-head__aside">clr(name) → var(--color-name)</div>
+    </div>
+    <div class="pg-swatches" id="swatches"></div>
+  </section>
+
+  <!-- ============ TOKENS: TYPE ============ -->
+  <section class="section pg-block" id="type">
+    <div class="section-head">
+      <div><span class="eyebrow">02 // Токени</span><h2 class="section-head__title">Типографіка</h2></div>
+      <div class="section-head__aside">@include type(name) · .t-name</div>
+    </div>
+    <div>
+      <div class="pg-type-row"><code class="pg-code">display-xl · 72/76 · 800</code><div class="t-display-xl">Кінець епохи хмарочосів</div></div>
+      <div class="pg-type-row"><code class="pg-code">display-lg · 52/56 · 700</code><div class="t-display-lg">Ранковий дайджест без спаму</div></div>
+      <div class="pg-type-row"><code class="pg-code">headline-lg · 36/42</code><div class="t-headline-lg">Тематичний реєстр аналітики</div></div>
+      <div class="pg-type-row"><code class="pg-code">headline-md · 24/30</code><div class="t-headline-md">Пов’язані матеріали з архіву</div></div>
+      <div class="pg-type-row"><code class="pg-code">headline-sm · 19/25</code><div class="t-headline-sm">Децентралізація енергомереж: алгоритмічний розподіл</div></div>
+      <div class="pg-type-row"><code class="pg-code">body-lg · 18/28</code><div class="t-body-lg">Гіперурбанізм поступається місцем низькоповерховій поліцентричній забудові.</div></div>
+      <div class="pg-type-row"><code class="pg-code">body-md · 15/23</code><div class="t-body-md">Тільки перевірені факти, очищені від риторичного шуму, клікбейту та рекламних включень.</div></div>
+      <div class="pg-type-row"><code class="pg-code">body-sm · 13/19</code><div class="t-body-sm">Як мікрогенерація на базі відкритих протоколів руйнує монополію хабів.</div></div>
+      <div class="pg-type-row"><code class="pg-code">label-md · 11 · +0.08em</code><div class="t-label-md t-upper">Читати дослідження</div></div>
+      <div class="pg-type-row"><code class="pg-code">label-sm · 10 · +0.1em</code><div class="t-label-sm t-upper">Dispatch // 2024.10.14</div></div>
+      <div class="pg-type-row"><code class="pg-code">serif · Stardom (Latin)</code><div class="t-serif" style="font-size:3rem;line-height:1.1">Zeitpunkt — The Editorial Review 1924</div></div>
+      <div class="pg-type-row"><code class="pg-code">serif · кирилиця → fallback</code><div class="t-serif" style="font-size:3rem;line-height:1.1">Тиша — це валюта</div></div>
+    </div>
+  </section>
+
+  <!-- ============ TOKENS: SPACING ============ -->
+  <section class="section section--low pg-block" id="spacing">
+    <div class="section-head">
+      <div><span class="eyebrow">03 // Токени</span><h2 class="section-head__title">Відступи та сітка</h2></div>
+      <div class="section-head__aside">space(xs…xl) · base-8</div>
+    </div>
+    <div class="grid grid--12">
+      <div class="span-lg-4 stack stack--sm">
+        <div class="pg-space"><code class="pg-code">xs · 0.25rem</code><span class="pg-space__bar" style="width:.25rem"></span></div>
+        <div class="pg-space"><code class="pg-code">sm · 0.5rem</code><span class="pg-space__bar" style="width:.5rem"></span></div>
+        <div class="pg-space"><code class="pg-code">md · 1rem</code><span class="pg-space__bar" style="width:1rem"></span></div>
+        <div class="pg-space"><code class="pg-code">lg · 2rem</code><span class="pg-space__bar" style="width:2rem"></span></div>
+        <div class="pg-space"><code class="pg-code">xl · 4rem</code><span class="pg-space__bar" style="width:4rem"></span></div>
+      </div>
+      <div class="span-lg-8 stack stack--xs">
+        <div class="grid grid--12 grid--gap-xs">
+          <div class="span-lg-8 panel panel--inverse t-label-sm t-upper">span-lg-8 · основний текст</div>
+          <div class="span-lg-4 panel panel--high t-label-sm t-upper">span-lg-4 · маргіналії</div>
+          <div class="span-lg-3 panel panel--high t-label-sm t-upper">span-lg-3</div>
+          <div class="span-lg-9 panel panel--inverse t-label-sm t-upper">span-lg-9</div>
+          <div class="span-lg-6 start-lg-4 panel panel--high t-label-sm t-upper">span-lg-6 start-lg-4</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ATOMS: BUTTONS ============ -->
+  <section class="section pg-block" id="atoms">
+    <div class="section-head">
+      <div><span class="eyebrow">04 // Атоми</span><h2 class="section-head__title">Кнопки</h2></div>
+      <div class="section-head__aside">.btn + --outline / --subtle / --inverse / --ghost / --link</div>
+    </div>
+    <div class="grid grid--cols-2">
+      <div class="pg-demo stack">
+        <div class="cluster">
+          <button class="btn" type="button">Підписатися</button>
+          <button class="btn btn--outline" type="button">Архів</button>
+          <button class="btn btn--subtle" type="button">Оформити брифінг <span class="icon icon--nudge" aria-hidden="true">arrow_forward</span></button>
+          <button class="btn btn--ghost btn--icon" type="button" aria-label="Пошук"><span class="icon" aria-hidden="true">search</span></button>
+        </div>
+        <div class="cluster">
+          <button class="btn btn--sm" type="button">Small</button>
+          <button class="btn" type="button">Default</button>
+          <button class="btn btn--lg" type="button">Large</button>
+          <button class="btn" type="button" disabled>Disabled</button>
+        </div>
+        <a class="btn btn--link" href="#">Читати дослідження <span class="icon icon--sm icon--nudge" aria-hidden="true">arrow_forward</span></a>
+        <a class="btn btn--block btn--split" href="#">Відкрити повний депеш-звіт <span class="icon icon--nudge" aria-hidden="true">arrow_forward</span></a>
+      </div>
+      <div class="pg-demo panel--inverse stack">
+        <div class="cluster">
+          <button class="btn btn--inverse" type="button">Стати членом клубу <span class="icon" aria-hidden="true">verified_user</span></button>
+          <button class="btn btn--inverse btn--lg" type="button">Підписатися</button>
+        </div>
+        <span class="eyebrow" style="color:var(--color-outline-variant)">Читацькі контроли</span>
+        <div class="cluster cluster--xs">
+          <div class="btn-group">
+            <button class="btn" type="button" aria-label="Зменшити шрифт">A-</button>
+            <button class="btn" type="button" aria-label="Збільшити шрифт">A+</button>
+          </div>
+          <button class="btn btn--subtle btn--sm" type="button" data-toggle aria-pressed="false"><span class="icon" aria-hidden="true">bookmark</span>В список</button>
+          <button class="btn btn--subtle btn--sm" type="button" data-share><span class="icon" aria-hidden="true">share</span><span data-share-label>Поділитися</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ATOMS: BADGES & META ============ -->
+  <section class="section section--low pg-block" id="badges">
+    <div class="section-head">
+      <div><span class="eyebrow">05 // Атоми</span><h2 class="section-head__title">Бейджі, теги, метадані</h2></div>
+    </div>
+    <div class="grid grid--cols-2">
+      <div class="pg-demo stack">
+        <div class="cluster cluster--xs">
+          <span class="badge">Головний матеріал</span>
+          <span class="badge badge--subtle">Технології</span>
+          <span class="badge badge--muted">Фундамент</span>
+          <span class="badge badge--variant">Культура</span>
+          <span class="badge badge--outline">Est. 2024</span>
+          <span class="badge badge--md badge--subtle">Безкоштовно</span>
+        </div>
+        <div class="tag-list">
+          <span class="tag-list__label">Теги:</span>
+          <a class="tag" href="#">Урбаністика</a><a class="tag" href="#">Штучний інтелект</a><a class="tag" href="#">Публічний простір</a>
+        </div>
+        <div class="cluster cluster--sm t-label-sm t-upper c-on-surface-variant">
+          <span class="dot"></span><span>Оновлено: сьогодні, 06:00 UTC</span>
+          <span class="dot dot--live"></span><span>Сервери онлайн</span>
+        </div>
+      </div>
+      <div class="pg-demo stack">
+        <div class="meta">
+          <span class="badge">Головний матеріал</span><span>//</span><span class="meta__strong">Урбаністика та простір</span>
+        </div>
+        <div class="meta meta--spread"><span>Сектор 01</span><span>5 хв читання</span></div>
+        <div class="meta meta--md">
+          <span class="meta__strong">Текст: Олександр Гриненко</span><span class="meta__sep">•</span><span>Київське бюро архітектури</span>
+        </div>
+        <div class="meta">
+          <time class="meta__item" datetime="2024-10-24">24 жовтня 2024</time><span class="meta__sep">/</span>
+          <span class="meta__item"><span class="icon" aria-hidden="true">schedule</span>8 хв читання</span><span class="meta__sep">/</span>
+          <span>Дослідження N° 88</span>
+        </div>
+        <div class="cluster cluster--lg meta">
+          <div class="meta__pair"><span class="meta__key">Місто дослідження</span><span class="meta__value">Київ / Цюрих</span></div>
+          <div class="meta__pair"><span class="meta__key">Рецензія</span><span class="meta__value">Пройдено (peer-review)</span></div>
+        </div>
+        <ol class="breadcrumb">
+          <li><a href="#">Реєстр</a></li><li><span aria-current="page">Архів та тематичний каталог</span></li><li>Том I-IV</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FILTERS ============ -->
+  <section class="section section--low section--md pg-block" id="filters">
+    <div class="stack">
+      <div class="split">
+        <div class="input-icon grow max-lg">
+          <span class="icon" aria-hidden="true">search</span>
+          <input class="input input--flush" type="search" placeholder="ПОШУК ЗА НАЗВОЮ, АВТОРОМ АБО НОМЕРОМ ВИПУСКУ...">
+        </div>
+        <div class="cluster cluster--md">
+          <div class="cluster cluster--xs t-label-md t-upper bg-surface" style="padding:.5rem 1rem"><span class="dot dot--sm"></span><span class="c-primary">Знайдено 142 матеріали</span></div>
+          <div class="segmented" data-toggle-group>
+            <button class="segmented__item" type="button" aria-pressed="true">Хронологічно</button>
+            <button class="segmented__item" type="button" aria-pressed="false">Найбільш обговорювані</button>
+          </div>
+        </div>
+      </div>
+      <div class="split">
+        <div class="chip-group" data-toggle-group>
+          <button class="chip" type="button" aria-pressed="true">Всі</button>
+          <button class="chip" type="button" aria-pressed="false">Суспільство</button>
+          <button class="chip" type="button" aria-pressed="false">Технології</button>
+          <button class="chip" type="button" aria-pressed="false">Культура</button>
+          <button class="chip" type="button" aria-pressed="false">Економіка</button>
+        </div>
+        <div class="chip-group" data-toggle-group>
+          <span class="chip-group__label">Рік:</span>
+          <button class="chip" type="button" aria-pressed="true">2024</button>
+          <button class="chip" type="button" aria-pressed="false">2023</button>
+          <button class="chip" type="button" aria-pressed="false">Архів 2018–2021</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FORMS ============ -->
+  <section class="section pg-block" id="forms">
+    <div class="section-head">
+      <div><span class="eyebrow">06 // Форми</span><h2 class="section-head__title">Поля, чекбокси, вибір</h2></div>
+      <div class="section-head__aside">focus: 2px чорний, без glow</div>
+    </div>
+    <div class="grid grid--12">
+      <form class="span-lg-7 panel panel--xl stack" onsubmit="event.preventDefault()">
+        <div class="grid grid--cols-2 grid--gap-md">
+          <label class="field"><span class="field__label">Ваше ім'я та інституція</span><input class="input" placeholder="Напр. Богдан Савчук, KMA" required></label>
+          <label class="field"><span class="field__label">Електронна пошта (не публікується)</span><input class="input" type="email" placeholder="name@domain.ua" required></label>
+        </div>
+        <label class="field"><span class="field__label">Текст репліки</span><textarea class="input" rows="4" placeholder="Викладіть вашу позицію..."></textarea><span class="field__hint">Коментарі рецензуються редакторами.</span></label>
+        <label class="field"><span class="field__label">Рубрика</span><select class="input"><option>Урбаністика</option><option>Технології</option></select></label>
+        <div class="spread spread--wrap">
+          <label class="check"><input class="check__input" type="checkbox" checked>Підписатися на відповіді на цей матеріал</label>
+          <button class="btn btn--lg" type="submit">Надіслати коментар</button>
+        </div>
+      </form>
+      <div class="span-lg-5 stack">
+        <div class="grid grid--gap-sm">
+          <label class="choice"><input class="check__input" type="radio" name="plan" checked>Щоденний брифінг (0 ₴)</label>
+          <label class="choice"><input class="check__input" type="radio" name="plan">Членство в клубі (200 ₴/міс)</label>
+        </div>
+        <div class="inline-form">
+          <label class="field"><span class="field__label">Адреса електронної пошти</span><input class="input input--lg" type="email" placeholder="editor@domain.ua"></label>
+          <button class="btn btn--lg" type="button">Підтвердити <span class="icon" aria-hidden="true">done</span></button>
+        </div>
+        <div class="alert"><span class="icon" aria-hidden="true">check_circle</span>Запит успішно зафіксовано. Перевірте поштову скриньку.</div>
+        <div class="alert alert--error"><span class="icon" aria-hidden="true">error</span>Невірний формат адреси.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter CTA strip -->
+  <section class="cta-strip">
+    <div class="grid grid--12 grid--align-center">
+      <div class="span-lg-7 stack stack--sm">
+        <div class="meta"><span>Щоденний бриф // 08:00 ранку</span><span>•</span><span>Час читання: 3 хвилини</span></div>
+        <h2 class="cta-strip__title">Ранковий дайджест без спаму</h2>
+        <p class="cta-strip__text">Тільки перевірені факти, очищені від риторичного шуму, клікбейту та рекламних включень.</p>
+      </div>
+      <div class="span-lg-5">
+        <form class="inline-form inline-form--lg" onsubmit="event.preventDefault()">
+          <label class="visually-hidden" for="nl-email">Електронна адреса</label>
+          <input class="input input--lg" id="nl-email" type="email" placeholder="vash.email@domain.com" required>
+          <button class="btn btn--inverse btn--lg" type="submit">Підписатися</button>
+        </form>
+        <div class="meta meta--spread mt-xs"><span>Шифрування PGP доступне</span><span>Скасування в 1 клік</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CARDS ============ -->
+  <section class="section pg-block" id="cards">
+    <div class="section-head">
+      <div><span class="eyebrow">07 // Картки</span><h2 class="section-head__title">Лід + пріоритетні звіти</h2></div>
+      <div class="section-head__aside">.card--lead · .card--compact</div>
+    </div>
+    <div class="grid grid--12">
+      <article class="card card--lead span-lg-8">
+        <div class="stack stack--sm">
+          <div class="meta meta--spread">
+            <div class="meta meta--tight"><span class="badge">Головний матеріал</span><span>//</span><span class="meta__strong">Урбаністика та простір</span></div>
+            <span>Читання: 6 хв</span>
+          </div>
+          <h3 class="card__title">Нова архітектура міського простору: кінець епохи хмарочосів</h3>
+          <p class="card__excerpt">Гіперурбанізм поступається місцем низькоповерховій поліцентричній забудові. Чому мегаполіси свідомо демонтують вертикальну ієрархію.</p>
+        </div>
+        <figure class="media media--16x9">
+          <img src="https://picsum.photos/seed/brutal/1200/675" alt="">
+          <figcaption class="media__caption"><span>Фото: архів міського інституту / проект «Горизонт-34»</span><span>Масштаб 1:500</span></figcaption>
+        </figure>
+        <footer class="card__footer">
+          <div class="meta meta--md"><span class="meta__strong">Текст: Олександр Гриненко</span><span class="meta__sep">•</span><span>Київське бюро</span></div>
+          <a class="btn btn--link" href="#">Читати дослідження <span class="icon icon--sm icon--nudge" aria-hidden="true">arrow_forward</span></a>
+        </footer>
+      </article>
+      <aside class="span-lg-4 stack">
+        <div class="panel panel--bar spread"><span class="panel__title">Пріоритетні звіти</span><span class="t-label-sm t-upper c-secondary">N° 01 — 03</span></div>
+        <article class="card card--compact card--link card--clamp">
+          <div class="card__body">
+            <div class="meta meta--spread"><span class="badge badge--subtle">Технології</span><span>13:15 // 4 хв</span></div>
+            <h3 class="card__title"><a href="#">Децентралізація енергомереж: алгоритмічний розподіл без транзитного нагляду</a></h3>
+            <p class="card__excerpt">Як мікрогенерація на базі відкритих математичних протоколів руйнує монополію централізованих диспетчерських хабів.</p>
+          </div>
+          <div class="meta meta--spread"><span>Аналітичний звіт</span><span class="icon icon--sm" aria-hidden="true">chevron_right</span></div>
+        </article>
+        <article class="card card--compact card--link card--clamp">
+          <div class="card__body">
+            <div class="meta meta--spread"><span class="badge badge--subtle">Суспільство</span><span>11:50 // 7 хв</span></div>
+            <h3 class="card__title"><a href="#">Криза довіри до цифрового голосування в муніципалітетах Північної Європи</a></h3>
+            <p class="card__excerpt">Громадяни вимагають повернення до фізичних паперових бюлетенів.</p>
+          </div>
+          <div class="meta meta--spread"><span>Соціологічне опитування</span><span class="icon icon--sm" aria-hidden="true">chevron_right</span></div>
+        </article>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--low">
+    <div class="section-head">
+      <div><span class="eyebrow">Розділ: тематичний зріз</span><h2 class="section-head__title">Тематичний реєстр аналітики</h2></div>
+      <div class="section-head__aside">.grid--cols-4 · .card · .quote-tile · .chart-tile</div>
+    </div>
+    <div class="grid grid--cols-4">
+      <article class="card is-zoomable">
+        <div class="card__body" style="gap:var(--space-md)">
+          <div class="media media--4x3"><img src="https://picsum.photos/seed/server/600/450" alt=""><span class="badge media__badge">Фокус // Інформатика</span></div>
+          <div class="card__body">
+            <div class="meta meta--spread"><span>Сектор 01</span><span>5 хв читання</span></div>
+            <h3 class="card__title"><a href="#">Штучний інтелект у публічному управлінні</a></h3>
+            <p class="card__excerpt">Чи здатні алгоритми оптимізації замінити бюрократичні апарати.</p>
+          </div>
+        </div>
+        <footer class="card__footer"><span class="card__author">Ярослав Вовк</span><span>№ 402-A</span></footer>
+      </article>
+      <article class="card">
+        <div class="card__body" style="gap:var(--space-md)">
+          <div class="media media--4x3">
+            <div class="chart-tile">
+              <div class="meta meta--spread"><span>Мережевий граф</span><span>2024</span></div>
+              <svg viewBox="0 0 200 120" fill="none" stroke="currentColor"><path d="M20 100 70 30l60 50 50-60" stroke-width="2" stroke-linecap="square"/><path d="M20 100h80l80-80" stroke-width="1" stroke-dasharray="3 3"/><circle cx="20" cy="100" r="4" fill="currentColor"/><circle cx="70" cy="30" r="4" fill="currentColor"/><circle cx="130" cy="80" r="4" fill="currentColor"/><circle cx="180" cy="20" r="4" fill="currentColor"/></svg>
+              <div class="meta meta--spread c-on-surface"><span>Транзит 2024</span><span class="t-bold">+34.8% NET</span></div>
+            </div>
+            <span class="badge media__badge">Економіка</span>
+          </div>
+          <div class="card__body">
+            <div class="meta meta--spread"><span>Сектор 03</span><span>6 хв читання</span></div>
+            <h3 class="card__title"><a href="#">Нова географія логістичних вузлів Європи</a></h3>
+            <p class="card__excerpt">Картографічний зсув виробничих потужностей на схід.</p>
+          </div>
+        </div>
+        <footer class="card__footer"><span class="card__author">Девид Берг</span><span>№ 402-C</span></footer>
+      </article>
+      <article class="card">
+        <div class="card__body" style="gap:var(--space-md)">
+          <div class="quote-tile">
+            <div class="quote-tile__eyebrow">Колонка редактора</div>
+            <div class="quote-tile__text">«Тиша — це валюта»</div>
+            <div class="quote-tile__foot">Есей дня // теза 14</div>
+            <span class="badge badge--inverse media__badge media__badge--right">Думка</span>
+          </div>
+          <div class="card__body">
+            <div class="meta meta--spread"><span>Сектор 04</span><span>4 хв читання</span></div>
+            <h3 class="card__title"><a href="#">Чому інфо-гігієна стала навичкою виживання</a></h3>
+            <p class="card__excerpt">Раціональний скептицизм як психологічний бронежилет.</p>
+          </div>
+        </div>
+        <footer class="card__footer"><span class="card__author">Анна Мартиник</span><span>№ 402-D</span></footer>
+      </article>
+      <article class="card card--muted card--flush is-zoomable">
+        <div class="media media--4x5"><img src="https://picsum.photos/seed/editor/480/600" alt=""><span class="badge media__badge media__badge--bottom">Головний редактор</span></div>
+        <div class="card__content">
+          <div>
+            <h3 class="card__title t-upper">Ярослав Вовк</h3>
+            <p class="t-label-sm t-upper c-secondary mt-xs">Політична економія та стратегія</p>
+            <p class="card__excerpt mt-xs">14 років у критичній журналістиці.</p>
+          </div>
+          <a class="btn btn--link btn--sm" href="mailto:y.vovk@zeitpunkt.ua"><span class="icon icon--xs" aria-hidden="true">mail</span>Y.VOVK@ZEITPUNKT.UA</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div><span class="eyebrow">Маніфест</span><h2 class="section-head__title">Принципи + креди</h2></div>
+      <div class="section-head__aside">.card--tenet · .creed</div>
+    </div>
+    <div class="grid grid--12 grid--align-start">
+      <div class="span-lg-6 stack stack--lg sticky">
+        <blockquote class="creed">«Журналістика фактів, структурне мислення, нуль інформаційного сміття.»</blockquote>
+        <div class="panel panel--low stack stack--sm">
+          <div class="meta meta--spread"><span>Фільтрація інформаційного потоку</span><span class="meta__strong">1:42</span></div>
+          <div class="ratio" style="--value:7.5%"><span class="ratio__fill"></span></div>
+          <div class="meta meta--spread"><span>Шум (відсіяно: 92.5%)</span><span class="meta__strong">Сутність (7.5%)</span></div>
+        </div>
+      </div>
+      <div class="span-lg-6 stack stack--lg">
+        <article class="card card--tenet">
+          <div class="spread"><span class="card__index">01</span><span class="badge badge--muted">Фундамент</span></div>
+          <h3 class="card__title">Незалежність</h3>
+          <p class="card__excerpt">Видання фінансується виключно внесками спільноти та прямими передплатами.</p>
+          <div class="card__footer">Правило: повне відділення редакції від комерційних впливів.</div>
+        </article>
+        <article class="card card--tenet">
+          <div class="spread"><span class="card__index">02</span><span class="badge badge--muted">Мова</span></div>
+          <h3 class="card__title">Відсутність клікбейту</h3>
+          <p class="card__excerpt">Заголовки мають відповідати змісту на 100%.</p>
+          <div class="card__footer">Правило: нульова толерантність до сенсаційності.</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PLANS ============ -->
+  <section class="section section--low pg-block" id="plans">
+    <div class="section-head">
+      <div><span class="eyebrow">Модель підтримки</span><h2 class="section-head__title section-head__title--display">Моделі передплати</h2></div>
+      <p class="section-head__lead">Жодної комерційної банерної реклами чи прихованих реферальних посилань.</p>
+    </div>
+    <div class="grid grid--cols-2">
+      <div class="plan">
+        <div class="plan__body">
+          <div class="plan__head"><div><span class="plan__tier">Рівень 01 // Базовий</span><h3 class="plan__title">Щоденний брифінг</h3></div><span class="badge badge--md badge--subtle">Безкоштовно</span></div>
+          <p class="plan__desc">Ранковий інтелектуальний дайджест для людей, які цінують чіткість.</p>
+          <div class="plan__features">
+            <span class="checklist__heading">Специфікація:</span>
+            <ul class="checklist">
+              <li><span class="icon" aria-hidden="true">check</span>Головні події щоранку о 08:00</li>
+              <li><span class="icon" aria-hidden="true">check</span>Рівно 5 хвилин на читання</li>
+              <li class="checklist__off"><span class="icon" aria-hidden="true">remove</span>Без доступу до спецреєстру</li>
+            </ul>
+          </div>
+        </div>
+        <div class="plan__cta"><a class="btn btn--subtle btn--block" href="#">Оформити брифінг <span class="icon" aria-hidden="true">arrow_forward</span></a><span class="plan__note">Відписатися можна в один клік</span></div>
+      </div>
+      <div class="plan plan--featured">
+        <div class="plan__body">
+          <div class="plan__head"><div><span class="plan__tier">Рівень 02 // Повний доступ</span><h3 class="plan__title">Клуб ZEITPUNKT</h3></div><span class="badge badge--md badge--dark">Преміальний</span></div>
+          <div class="plan__price"><span class="plan__amount">200 ₴</span><span class="plan__period">/ місяць</span></div>
+          <p class="plan__desc">Повне інституційне членство та доступ до глибокого аналізу.</p>
+          <div class="plan__features">
+            <span class="checklist__heading">Привілеї члена клубу:</span>
+            <ul class="checklist">
+              <li><span class="icon" aria-hidden="true">check_circle</span>Розширені звіти PDF/EPUB</li>
+              <li><span class="icon" aria-hidden="true">check_circle</span>Закритий лонгрід щосуботи</li>
+              <li><span class="icon" aria-hidden="true">check_circle</span>Круглі столи з редакторами</li>
+            </ul>
+          </div>
+        </div>
+        <div class="plan__cta"><button class="btn btn--inverse btn--block" type="button">Стати членом клубу <span class="icon" aria-hidden="true">verified_user</span></button><span class="plan__note">Автоматична щомісячна пролонгація</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EDITORIAL: TIMELINE ============ -->
+  <section class="section pg-block" id="editorial">
+    <div class="grid grid--12">
+      <div class="span-lg-3 stack stack--xs">
+        <span class="eyebrow">Хронологічний реєстр</span>
+        <h2 class="t-headline-md t-bold t-upper">Стрічка дня</h2>
+        <p class="t-body-sm c-on-surface-variant">Миттєва фіксація ключових подій за останні 24 години.</p>
+      </div>
+      <ol class="timeline span-lg-9">
+        <li class="timeline__item">
+          <div class="timeline__main"><time class="timeline__time">15:12</time><div><h3 class="timeline__title"><a href="#">Мінфін оприлюднив проект цифрового митного аудиту на 2026 рік</a></h3><p class="timeline__text">Система передбачає повне виключення людського фактора.</p></div></div>
+          <span class="timeline__tag">Регуляція</span>
+        </li>
+        <li class="timeline__item">
+          <div class="timeline__main"><time class="timeline__time">14:05</time><div><h3 class="timeline__title"><a href="#">Швейцарський нацбанк завершив першу транзакцію у токенізованих франках</a></h3><p class="timeline__text">Протокол використав квантово-стійкий шифр.</p></div></div>
+          <span class="timeline__tag">Фінанси</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ INDEX TABLE ============ -->
+  <section class="section section--md pg-block" id="index">
+    <div class="index-table">
+      <div class="index-table__head">
+        <div class="index-table__c-date">Дата // випуск</div><div class="index-table__c-cat">Категорія</div>
+        <div class="index-table__c-main">Заголовок статті та тематичний тезис</div><div class="index-table__c-author">Автор</div><div class="index-table__c-size">Обсяг</div>
+      </div>
+      <div class="index-table__body">
+        <a class="index-table__row" href="#">
+          <div class="index-table__date"><strong>24.10.2024</strong><span> // № 415</span></div>
+          <div class="index-table__cat"><span class="badge badge--variant">Технології</span></div>
+          <div class="index-table__main"><h3 class="index-table__title">Криптографія присутності: як локальні протоколи захищають публічну сферу</h3><p class="index-table__thesis">Критичний огляд безсерверних мереж комунікації та їх стійкості до відключень.</p></div>
+          <div class="index-table__author">Данило Рудий</div><div class="index-table__size">12 хв</div>
+        </a>
+        <a class="index-table__row" href="#">
+          <div class="index-table__date"><strong>18.10.2024</strong><span> // № 412</span></div>
+          <div class="index-table__cat"><span class="badge badge--variant">Суспільство</span></div>
+          <div class="index-table__main"><h3 class="index-table__title">Ерозія довіри та міські консенсуси: досвід відбудови на сході</h3><p class="index-table__thesis">Аналіз соціологічних опитувань громад Харківщини.</p></div>
+          <div class="index-table__author">Марта Кравчук</div><div class="index-table__size">18 хв</div>
+        </a>
+      </div>
+    </div>
+    <div class="pager mt-lg">
+      <div class="pager__status">Показано 1–8 із 142 записів / сторінка 01 із 18</div>
+      <nav aria-label="Сторінки">
+        <ul class="pagination">
+          <li><a class="pagination__item" href="#" aria-current="page">01</a></li>
+          <li><a class="pagination__item" href="#">02</a></li>
+          <li><a class="pagination__item" href="#">03</a></li>
+          <li><span class="pagination__ellipsis">...</span></li>
+          <li><a class="pagination__item" href="#">18</a></li>
+          <li><a class="pagination__item pagination__step" href="#" aria-label="Наступна сторінка"><span class="icon" aria-hidden="true">chevron_right</span></a></li>
+        </ul>
+      </nav>
+      <div class="pager__aside">Формат архіву: UTF-8 / JSON / print DIN A4</div>
+    </div>
+  </section>
+
+  <!-- ============ DATA ============ -->
+  <section class="section section--low pg-block" id="data">
+    <div class="section-head">
+      <div><span class="eyebrow">08 // Дані</span><h2 class="section-head__title">Статистика та графіки</h2></div>
+      <div class="section-head__aside">.stat · .meter · .bars · .ratio</div>
+    </div>
+    <div class="grid grid--12 grid--align-start">
+      <div class="span-lg-8">
+        <div class="stat" style="margin-top:0">
+          <div class="stat__main">
+            <span class="stat__eyebrow">Аналітичний зріз // 2024</span>
+            <div class="stat__value">74%</div>
+            <p class="stat__label">міських рішень автоматизовано або рекомендовано алгоритмами.</p>
+          </div>
+          <div class="stat__aside">
+            <div class="meter meter--inverse" style="--value:88%"><div class="meter__label"><span>Мережі транспорту</span><span>88%</span></div><div class="meter__track"><span class="meter__fill"></span></div></div>
+            <div class="meter meter--inverse" style="--value:54%"><div class="meter__label"><span>Зонування земель</span><span>54%</span></div><div class="meter__track"><span class="meter__fill"></span></div></div>
+            <div class="meter meter--inverse" style="--value:79%"><div class="meter__label"><span>Безпекові патрулі</span><span>79%</span></div><div class="meter__track"><span class="meter__fill"></span></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="span-lg-4 stack">
+        <div class="panel panel--lowest">
+          <div class="meta meta--spread mb-xs"><span>Загальний фонд</span><span class="meta__strong">1 482 тексти</span></div>
+          <div class="bars"><span class="bars__bar" style="--h:37%"></span><span class="bars__bar" style="--h:50%"></span><span class="bars__bar" style="--h:75%"></span><span class="bars__bar is-active" style="--h:100%"></span></div>
+          <div class="bars__labels"><span>2021</span><span>2022</span><span>2023</span><span class="is-active">2024</span></div>
+        </div>
+        <div class="panel fact">
+          <span class="eyebrow">Ключовий факт</span>
+          <p class="fact__text">До 2030 року 92% публічного освітлення ЄС керуватиметься нейромережами.</p>
+          <span class="fact__source">Джерело: Urban Tech Council</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ARTICLE ============ -->
+  <div class="read-progress pg-block" data-read-progress="#article"><span class="read-progress__bar"></span></div>
+  <article class="section" id="article">
+    <div class="panel panel--low panel--lg split mb-lg">
+      <div class="meta">
+        <span class="badge badge--md">Технології та суспільство</span><span class="meta__sep">/</span>
+        <time class="meta__item">24 жовтня 2024</time><span class="meta__sep">/</span>
+        <span class="meta__item"><span class="icon" aria-hidden="true">schedule</span>8 хв читання</span>
+      </div>
+      <div class="cluster cluster--xs">
+        <div class="btn-group">
+          <button class="btn" type="button" data-prose-size="-1" data-target="#article-body" aria-label="Зменшити шрифт">A-</button>
+          <button class="btn" type="button" data-prose-size="1" data-target="#article-body" aria-label="Збільшити шрифт">A+</button>
+        </div>
+        <button class="btn btn--subtle btn--sm" type="button" data-toggle aria-pressed="false"><span class="icon" aria-hidden="true">bookmark</span><span class="from-sm">В список</span></button>
+      </div>
+    </div>
+
+    <div class="grid grid--12 mb-xl">
+      <div class="span-lg-9">
+        <h1 class="headline">Етика алгоритмів: як автоматизовані рішення формують нові міста</h1>
+        <p class="lede">Аналіз трансформації муніципального простору під тиском самонавчальних систем розподілу ресурсів.</p>
+      </div>
+      <div class="span-lg-3 panel panel--low stack stack--sm">
+        <div class="meta__pair meta"><span class="meta__key">Рубрикаріум</span><span class="t-headline-sm t-bold t-upper c-primary" style="letter-spacing:-.01em">Урбаністика</span></div>
+      </div>
+    </div>
+
+    <div class="panel panel--low panel--lg split mb-xl">
+      <div class="byline">
+        <img class="portrait" src="https://picsum.photos/seed/author/112/112" alt="Олена Марченко">
+        <div class="byline__body">
+          <span class="byline__name">Олена Марченко <span class="icon icon--filled" title="Верифікований автор" aria-hidden="true">verified</span></span>
+          <span class="byline__role">Редакторка напрямку урбаністики та автономних технологій</span>
+        </div>
+      </div>
+      <div class="cluster cluster--lg meta">
+        <div class="meta__pair"><span class="meta__key">Місто дослідження</span><span class="meta__value">Київ / Цюрих</span></div>
+      </div>
+    </div>
+
+    <figure class="media media--hero media--dark mb-xl">
+      <img src="https://picsum.photos/seed/city/1600/900" alt="">
+      <div class="media__overlay">
+        <figcaption class="media__overlay-text">Фрагмент архітектурного каркаса експериментального смарт-району.</figcaption>
+        <span class="t-label-sm t-upper t-nowrap c-inverse-primary">Фото: Лукас Браун / archive.net</span>
+      </div>
+    </figure>
+
+    <div class="grid grid--12">
+      <aside class="span-lg-3 from-lg">
+        <div class="sticky stack stack--lg">
+          <nav class="panel panel--low toc">
+            <div class="toc__title">Зміст дослідження</div>
+            <ul class="toc__list">
+              <li><a class="toc__link is-active" href="#s1">01. Прихований код мегаполісів</a></li>
+              <li><a class="toc__link" href="#s2">02. Пастка параметризму</a></li>
+              <li><a class="toc__link" href="#s3">03. Суспільний компроміс</a></li>
+            </ul>
+          </nav>
+        </div>
+      </aside>
+      <div class="span-lg-8 start-lg-4">
+        <div class="prose prose--dropcap" id="article-body">
+          <p id="s1">Місто більше не будується виключно з вапна, сталі та директив генерального плану. Його нові мури невидимі, а фундаменти закладені у вайтпейперах хмарних інфраструктур.</p>
+          <p>Воно набуває активної волі, сфокусованої на максимізації вузьких параметрів ефективності. Проте чий критерій ефективності береться за абсолют?</p>
+          <h2 id="s2">Пастка параметризму: як код консервує нерівність</h2>
+          <p>У класичній містобудівній школі помилка архітектора мала фізичний вимір: тріщина на фасаді, завузький тротуар чи відсутність тіні в полудень.</p>
+          <blockquote class="pullquote">
+            <p class="pullquote__text">Справжня складність не в коді, а в нездатності суспільства домовитися про спільні цінності.</p>
+            <cite class="pullquote__cite">— З доповіді на Всесвітньому саміті міст, Базель</cite>
+          </blockquote>
+          <h3 id="s3">03. Повернення суб’єктності</h3>
+          <div class="panel stack stack--xs">
+            <div class="panel__title">Рекомендовані кроки для децентралізованого міста:</div>
+            <ol class="numbered">
+              <li>Обов'язкова відкритість навчальних датасетів муніципальних систем.</li>
+              <li>Незалежні етичні комісії з правом призупинення алгоритмів.</li>
+              <li>Гарантія аналогового дублювання життєво необхідних сервісів.</li>
+            </ol>
+          </div>
+          <div class="grid grid--cols-2 grid--gap-md">
+            <figure class="figure"><img src="https://picsum.photos/seed/block/600/400" alt=""><figcaption>Рис. 01: житловий сектор</figcaption></figure>
+            <figure class="figure"><img src="https://picsum.photos/seed/road/600/400" alt=""><figcaption>Рис. 02: алгоритмічні траєкторії руху</figcaption></figure>
+          </div>
+          <p>Перетворюючи місто на пласку функцію мінімізації витрат, ми ризикуємо створити простір бездоганно впорядкований — і водночас непридатний для життя.</p>
+        </div>
+        <div class="tag-list mt-xl">
+          <span class="tag-list__label">Теги:</span>
+          <a class="tag" href="#">Урбаністика</a><a class="tag" href="#">Штучний інтелект</a>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Secure channel strip -->
+  <section class="cta-strip cta-strip--compact">
+    <div class="wrap split">
+      <div class="cluster cluster--md cluster--nowrap">
+        <span class="icon icon--xl" aria-hidden="true">encrypted</span>
+        <div>
+          <h4 class="cta-strip__title cta-strip__title--sm">Закритий канал для джерел та інсайдерів</h4>
+          <p class="t-body-sm c-inverse-primary">Передача документів через PGP та SecureDrop.</p>
+        </div>
+      </div>
+      <a class="btn btn--inverse" href="#">PGP: KEY ID 0x89F21B</a>
+    </div>
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="site-footer__grid">
+    <div class="site-footer__about">
+      <div class="site-footer__brand"><span class="site-footer__wordmark">ZEITPUNKT</span><span class="badge badge--outline">Est. 2024</span></div>
+      <p class="site-footer__text">Міжнародний типографічний огляд незалежної думки, культури та політичної економії.</p>
+      <span class="eyebrow c-on-surface-variant">Друк / цифра / критичний архів</span>
+    </div>
+    <div class="site-footer__col">
+      <div class="site-footer__heading">Розділи видання</div>
+      <ul class="link-list"><li><a href="#">Головні матеріали</a></li><li><a href="#">Суспільство і влада</a></li><li><a href="#">Технологічні системи</a></li><li><a href="#">Історичний реєстр</a></li></ul>
+    </div>
+    <div class="site-footer__col">
+      <div class="site-footer__heading">Інституція</div>
+      <ul class="link-list"><li><a href="#">Редакційний маніфест</a></li><li><a href="#">Етичні стандарти</a></li><li><a href="#">Коло авторів</a></li></ul>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <div>© 2025 ZEITPUNKT Publishing Group. Всі права захищено.</div>
+    <div class="cluster cluster--md"><span>Шрифти: Hanken Grotesk / Inter / Stardom</span><span>Сітка: 12-col modular</span></div>
+  </div>
+</footer>
+
+<script type="module">
+  // Render color swatches from the live CSS variables
+  const names = ['primary','on-primary','secondary','tertiary-container','on-tertiary-container','inverse-primary','surface','surface-container-lowest','surface-container-low','surface-container','surface-container-high','surface-container-highest','surface-variant','surface-dim','on-surface','on-surface-variant','outline','outline-variant','hairline','field-border','error','error-container'];
+  const root = getComputedStyle(document.documentElement);
+  document.getElementById('swatches').innerHTML = names.map((n) => {
+    const v = root.getPropertyValue('--color-' + n).trim();
+    return `<button class="pg-swatch" type="button" data-copy="clr(${n})" title="Копіювати clr(${n})"><span class="pg-swatch__chip" style="background:var(--color-${n})"></span><span class="pg-swatch__name">${n}</span><span class="pg-swatch__value">${v}</span></button>`;
+  }).join('');
+  document.querySelectorAll('[data-copy]').forEach((el) => el.addEventListener('click', () => navigator.clipboard?.writeText(el.dataset.copy)));
+</script>
+</body>
+</html>

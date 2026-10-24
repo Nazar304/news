@@ -1,0 +1,125 @@
+@use '../tools' as *;
+
+// Tinted block. Base for fact boxes, TOC, info strips.
+.panel {
+  padding: space(md);
+  background: clr(surface-container);
+
+  &--lowest {
+    background: clr(surface-container-lowest);
+  }
+
+  &--low {
+    background: clr(surface-container-low);
+  }
+
+  &--high {
+    background: clr(surface-container-high);
+  }
+
+  &--surface {
+    background: clr(surface);
+  }
+
+  &--inverse {
+    background: clr(primary);
+    color: clr(on-primary);
+  }
+
+  &--dark {
+    background: clr(tertiary-container);
+    color: clr(on-primary);
+  }
+
+  &--lg {
+    padding: space(md);
+
+    @include mq(sm) {
+      padding: space(lg);
+    }
+  }
+
+  &--xl {
+    padding: space(lg);
+
+    @include mq(sm) {
+      padding: space(xl);
+    }
+  }
+
+  &--bar {
+    padding-block: space(sm);
+  }
+
+  &--rule {
+    border: 1px solid clr(primary);
+  }
+
+  &__title {
+    @include label(md);
+    color: clr(primary);
+    letter-spacing: 0.1em;
+  }
+
+  &__text {
+    @include type(body-sm);
+    color: clr(secondary);
+  }
+}
+
+// Key fact: label + bold sentence + source
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: space(sm);
+
+  &__text {
+    @include type(headline-sm);
+    font-weight: 700;
+    line-height: 1.15;
+    color: clr(primary);
+  }
+
+  &__source {
+    @include label(sm);
+    color: clr(secondary);
+  }
+}
+
+// Table of contents
+.toc {
+  &__title {
+    @include label(md);
+    margin-bottom: space(sm);
+    color: clr(primary);
+    letter-spacing: 0.1em;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: space(xs);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__link {
+    @include type(body-sm);
+    display: block;
+    padding-block: 0.25rem;
+    color: clr(on-surface-variant);
+    @include transition(color);
+
+    &:hover,
+    &.is-active,
+    &[aria-current='true'] {
+      color: clr(primary);
+    }
+
+    &.is-active,
+    &[aria-current='true'] {
+      font-weight: 600;
+    }
+  }
+}

@@ -1,0 +1,90 @@
+@use '../tools' as *;
+
+// Vertical rhythm: children separated by --stack-gap.
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-gap, #{space(md)});
+
+  @each $s in (xs, sm, md, lg, xl) {
+    &--#{$s} {
+      --stack-gap: #{space($s)};
+    }
+  }
+
+  &--between {
+    justify-content: space-between;
+  }
+}
+
+// Inline group that wraps.
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cluster-gap, #{space(sm)});
+
+  @each $s in (xs, sm, md, lg) {
+    &--#{$s} {
+      --cluster-gap: #{space($s)};
+    }
+  }
+
+  &--baseline {
+    align-items: baseline;
+  }
+
+  &--nowrap {
+    flex-wrap: nowrap;
+  }
+}
+
+// Two ends of a row.
+.spread {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: space(sm);
+
+  &--wrap {
+    flex-wrap: wrap;
+  }
+
+  &--start {
+    align-items: flex-start;
+  }
+
+  &--end {
+    align-items: flex-end;
+  }
+
+  &--baseline {
+    align-items: baseline;
+  }
+}
+
+// Row that stacks on mobile, goes horizontal from md.
+.split {
+  display: flex;
+  flex-direction: column;
+  gap: space(md);
+
+  @include mq(md) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &--end {
+    @include mq(md) {
+      align-items: flex-end;
+    }
+  }
+}
+
+.sticky {
+  @include mq(lg) {
+    position: sticky;
+    top: calc(var(--header-h) + #{space(lg)});
+  }
+}

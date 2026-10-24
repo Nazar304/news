@@ -1,0 +1,16 @@
+{{- /*
+{{< steps title="Рекомендовані кроки:" >}}
+- Перший пункт
+- Другий пункт
+{{< /steps >}}
+*/ -}}
+<div class="panel stack stack--xs">
+  {{- with .Get "title" }}<div class="panel__title">{{ . }}</div>{{ end }}
+  <ol class="numbered">
+    {{- range split (strings.TrimSpace .Inner) "\n" }}
+      {{- with strings.TrimSpace (strings.TrimPrefix "- " (strings.TrimSpace .)) }}
+    <li><span>{{ . | $.Page.RenderString }}</span></li>
+      {{- end }}
+    {{- end }}
+  </ol>
+</div>

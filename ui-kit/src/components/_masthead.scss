@@ -1,0 +1,141 @@
+@use '../tools' as *;
+
+// Fixed site header: edition bar + brand/nav/actions bar.
+.masthead {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: z(header);
+  height: var(--header-h);
+  border-bottom: 1px solid clr(primary);
+  background: color-mix(in srgb, #{clr(surface)} 95%, transparent);
+  backdrop-filter: blur(4px);
+
+  // Top edition line
+  &__edition {
+    @include page-gutter;
+    @include label(sm);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 2rem;
+    border-bottom: 1px solid clr(surface-variant);
+    color: clr(on-surface-variant);
+  }
+
+  &__edition-aside {
+    display: none;
+    align-items: center;
+    gap: space(lg);
+
+    @include mq(sm) {
+      display: flex;
+    }
+  }
+
+  &__bar {
+    @include page-gutter;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: space(md);
+    height: calc(var(--header-h) - 2rem - 1px);
+  }
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: space(md);
+    color: clr(primary);
+  }
+
+  &__logo {
+    width: auto;
+    height: 2rem;
+    object-fit: contain;
+  }
+
+  &__wordmark {
+    @include type(headline-sm);
+    display: none;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    text-transform: uppercase;
+
+    @include mq(sm) {
+      display: inline-block;
+    }
+  }
+
+  &__nav {
+    display: none;
+    align-items: center;
+    gap: space(xs);
+
+    @include mq(md) {
+      display: flex;
+    }
+  }
+
+  &__link {
+    @include label(md);
+    padding: 0.25rem space(sm);
+    letter-spacing: 0.05em;
+    color: clr(on-surface-variant);
+    @include transition(color, background-color);
+
+    &:hover {
+      color: clr(on-surface);
+    }
+
+    &.is-active,
+    &[aria-current='page'] {
+      background: clr(primary);
+      color: clr(on-primary);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: space(md);
+  }
+
+  &__cta {
+    display: none;
+
+    @include mq(sm) {
+      display: inline-flex;
+    }
+  }
+
+  &__menu-toggle {
+    @include mq(md) {
+      display: none !important;
+    }
+  }
+
+  // Mobile menu (toggled by JS: .masthead.is-open)
+  &.is-open &__nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: space(sm) var(--page-margin) space(md);
+    border-bottom: 1px solid clr(primary);
+    background: clr(surface);
+  }
+
+  &.is-open &__link {
+    padding: space(sm) 0;
+    border-bottom: 1px solid clr(hairline);
+
+    &.is-active,
+    &[aria-current='page'] {
+      padding-inline: space(sm);
+    }
+  }
+}

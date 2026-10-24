@@ -1,0 +1,99 @@
+@use '../tools' as *;
+
+// Long-form article body. Font size is adjustable via --prose-scale (reader A-/A+).
+.prose {
+  --prose-scale: 1;
+  max-width: var(--measure);
+  display: flex;
+  flex-direction: column;
+  gap: space(md);
+  color: clr(on-surface);
+
+  &[data-size='1'] {
+    --prose-scale: 1.0556; // 19px
+  }
+
+  &[data-size='2'] {
+    --prose-scale: 1.1667; // 21px
+  }
+
+  > p {
+    @include type(body-lg);
+    font-size: calc(var(--fs-body-lg) * var(--prose-scale));
+    line-height: 1.625;
+    color: clr(secondary);
+  }
+
+  > p:first-of-type {
+    color: clr(on-surface);
+  }
+
+  > h2 {
+    @include type(headline-lg);
+    padding-top: space(md);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  > h3 {
+    @include type(headline-md);
+    padding-top: space(sm);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  a {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+
+    &:hover {
+      color: clr(primary);
+    }
+  }
+
+  > ul:not([class]),
+  > ol:not([class]) {
+    @include type(body-lg);
+    padding-left: 1.25em;
+    color: clr(secondary);
+  }
+
+  > .pullquote {
+    margin-block: space(lg);
+  }
+
+  // Drop cap on the first paragraph
+  &--dropcap > p:first-of-type::first-letter {
+    @include type(display-xl);
+    float: left;
+    padding: 0.25rem 0.75rem 0 0;
+    font-weight: 700;
+    line-height: 0.75;
+    color: clr(primary);
+  }
+}
+
+// Article title block
+.headline {
+  @include type(display-xl);
+  // Long Ukrainian words in caps must fit a 360px screen
+  font-size: clamp(1.75rem, 8vw, var(--fs-display-xl));
+  hyphens: auto;
+  margin-bottom: space(md);
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+  color: clr(primary);
+
+  &--lg {
+    @include type(display-lg);
+    text-transform: none;
+  }
+}
+
+.lede {
+  @include type(body-lg);
+  max-width: 48rem;
+  line-height: 1.625;
+  color: clr(secondary);
+}

@@ -1,0 +1,170 @@
+@use '../tools' as *;
+
+// Metadata line: КИЇВ // 2025.02.24 // ISSUE N° 402
+.meta {
+  @include label(sm);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: space(xs) space(sm);
+  color: clr(secondary);
+
+  &--spread {
+    justify-content: space-between;
+  }
+
+  &--md {
+    @include label(md);
+    color: clr(on-surface-variant);
+  }
+
+  &--tight {
+    gap: space(xs);
+  }
+
+  &__strong {
+    color: clr(primary);
+    font-weight: 700;
+  }
+
+  &__sep {
+    color: clr(outline-variant);
+  }
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    .icon {
+      --icon-size: 0.875rem;
+    }
+  }
+
+  // Stacked key/value (МІСТО ДОСЛІДЖЕННЯ / КИЇВ — ЦЮРИХ)
+  &__pair {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  &__key {
+    color: clr(outline);
+  }
+
+  &__value {
+    color: clr(on-surface);
+    font-weight: 700;
+  }
+
+  .section--inverse & {
+    color: clr(outline-variant);
+  }
+}
+
+// Small uppercase line above a title.
+.eyebrow {
+  @include label(sm);
+  display: block;
+  color: clr(secondary);
+
+  &--dot {
+    display: inline-flex;
+    align-items: center;
+    gap: space(xs);
+
+    &::before {
+      content: '';
+      width: 0.625rem;
+      height: 0.625rem;
+      background: currentColor;
+    }
+  }
+
+  &--md {
+    @include label(md);
+    color: clr(on-surface);
+  }
+
+  .section--inverse & {
+    color: clr(outline-variant);
+  }
+}
+
+// Section header: eyebrow + title left, aside right.
+.section-head {
+  display: flex;
+  flex-direction: column;
+  gap: space(sm);
+  margin-bottom: space(lg);
+
+  @include mq(md) {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  &__title {
+    @include type(headline-lg);
+    font-weight: 700;
+    color: clr(primary);
+  }
+
+  &__title--display {
+    @include type(display-lg);
+    text-transform: uppercase;
+    margin-top: space(xs);
+  }
+
+  &__aside {
+    @include label(md);
+    color: clr(secondary);
+  }
+
+  &__lead {
+    @include type(body-md);
+    max-width: 28rem;
+    color: clr(secondary);
+  }
+}
+
+// Breadcrumb: РЕЄСТР / АРХІВ / ТОМ I-IV
+.breadcrumb {
+  @include label(sm);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: space(sm);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: clr(on-surface-variant);
+
+  li + li::before {
+    content: '/';
+    margin-right: space(sm);
+  }
+
+  a:hover {
+    color: clr(primary);
+  }
+
+  [aria-current='page'] {
+    color: clr(primary);
+    font-weight: 700;
+  }
+}
+
+// Thin full-width strip under the masthead (breadcrumbs, document id, status)
+.ribbon {
+  @include page-gutter;
+  @include label(sm);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: space(sm);
+  padding-block: space(sm);
+  background: clr(surface-container-low);
+  color: clr(on-surface-variant);
+}

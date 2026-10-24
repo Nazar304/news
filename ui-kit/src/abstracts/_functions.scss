@@ -1,0 +1,34 @@
+@use 'sass:map';
+@use 'sass:math';
+@use '../tokens' as t;
+
+/// px → rem (16px root).
+@function rem($px) {
+  @return math.div($px, 16px) * 1rem;
+}
+
+/// Color token → CSS variable. Fails the build on a typo.
+/// @example color: clr(on-surface-variant);
+@function clr($name) {
+  @if not map.has-key(t.$colors, $name) {
+    @error 'Unknown color token `#{$name}`.';
+  }
+  @return var(--color-#{$name});
+}
+
+/// Spacing token → CSS variable.
+/// @example gap: space(md);
+@function space($name) {
+  @if not map.has-key(t.$spacing, $name) {
+    @error 'Unknown spacing token `#{$name}`.';
+  }
+  @return var(--space-#{$name});
+}
+
+/// Z-index layer.
+@function z($layer) {
+  @if not map.has-key(t.$z-layers, $layer) {
+    @error 'Unknown z-layer `#{$layer}`.';
+  }
+  @return map.get(t.$z-layers, $layer);
+}

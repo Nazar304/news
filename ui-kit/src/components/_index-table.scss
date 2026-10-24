@@ -1,0 +1,129 @@
+@use '../tools' as *;
+
+// Archive catalog: date | category | title+thesis | author | length
+.index-table {
+  &__head,
+  &__row {
+    @include mq(md) {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: 1.5rem;
+    }
+  }
+
+  &__head {
+    @include label(sm);
+    display: none;
+    padding: space(xs) space(md);
+    background: clr(surface-container-high);
+    color: clr(on-surface-variant);
+    font-weight: 700;
+
+    @include mq(md) {
+      display: grid;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin: 0.25rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  // Columns come from the md block above; on mobile it's a single implicit column.
+  &__row {
+    display: grid;
+    gap: space(sm);
+    align-items: baseline;
+    padding: space(md);
+    background: clr(surface);
+    @include transition(background-color);
+
+    &:hover {
+      background: clr(surface-container-low);
+    }
+
+    @include mq(md) {
+      row-gap: space(sm);
+    }
+  }
+
+  &__date {
+    @include label(sm);
+    color: clr(on-surface-variant);
+
+    strong {
+      color: clr(primary);
+    }
+
+    span {
+      color: color-mix(in srgb, #{clr(on-surface-variant)} 60%, transparent);
+    }
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  &__title {
+    @include type(headline-sm);
+    font-weight: 700;
+    line-height: 1.375;
+    text-transform: uppercase;
+    color: clr(primary);
+    @include transition(color);
+  }
+
+  &__row:hover &__title {
+    color: clr(secondary);
+  }
+
+  &__thesis {
+    @include type(body-sm);
+    @include line-clamp(1);
+    color: clr(secondary);
+  }
+
+  &__author {
+    @include type(body-sm);
+    color: clr(on-surface-variant);
+  }
+
+  &__size {
+    @include label(sm);
+    color: clr(on-surface-variant);
+  }
+
+  @include mq(md) {
+    &__c-date,
+    &__date {
+      grid-column: span 2;
+    }
+
+    &__c-cat,
+    &__cat {
+      grid-column: span 2;
+    }
+
+    &__c-main,
+    &__main {
+      grid-column: span 5;
+    }
+
+    &__c-author,
+    &__author {
+      grid-column: span 2;
+    }
+
+    &__c-size,
+    &__size {
+      grid-column: span 1;
+      text-align: right;
+    }
+  }
+}

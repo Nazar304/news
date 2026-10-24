@@ -1,0 +1,152 @@
+@use 'sass:map';
+@use '../tools' as *;
+
+// Type styles: .t-display-xl … .t-label-sm
+@each $name, $_ in $type-scale {
+  .t-#{$name} {
+    @include type($name);
+  }
+}
+
+.t-serif {
+  font-family: var(--font-serif);
+  font-weight: 400;
+}
+
+.t-upper {
+  text-transform: uppercase;
+}
+
+.t-bold {
+  font-weight: 700;
+}
+
+.t-semibold {
+  font-weight: 600;
+}
+
+.t-right {
+  text-align: right;
+}
+
+.t-nowrap {
+  white-space: nowrap;
+}
+
+.t-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.t-relaxed {
+  line-height: 1.625;
+}
+
+.t-tight {
+  line-height: 1;
+}
+
+// Text colors: .c-primary, .c-secondary …
+@each $name in (primary, secondary, on-surface, on-surface-variant, outline, outline-variant, on-primary, inverse-primary, surface-dim) {
+  .c-#{$name} {
+    color: clr($name);
+  }
+}
+
+// Backgrounds: .bg-low …
+$bg-map: (
+  surface: surface,
+  lowest: surface-container-lowest,
+  low: surface-container-low,
+  container: surface-container,
+  high: surface-container-high,
+  highest: surface-container-highest,
+  primary: primary,
+);
+
+@each $alias, $token in $bg-map {
+  .bg-#{$alias} {
+    background-color: clr($token);
+  }
+}
+
+// Spacing helpers (margin-top / padding-top only — layout uses stack/gap)
+@each $s in (xs, sm, md, lg, xl) {
+  .mt-#{$s} {
+    margin-top: space($s);
+  }
+
+  .mb-#{$s} {
+    margin-bottom: space($s);
+  }
+
+  .pt-#{$s} {
+    padding-top: space($s);
+  }
+}
+
+.mt-auto {
+  margin-top: auto;
+}
+
+// Width
+.max-measure {
+  max-width: var(--measure);
+}
+
+.max-sm {
+  max-width: 28rem;
+}
+
+.max-md {
+  max-width: 36rem;
+}
+
+.max-lg {
+  max-width: 42rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.grow {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.shrink-0 {
+  flex-shrink: 0;
+}
+
+// Images
+.u-mono {
+  @include mono-image;
+}
+
+// Clamp
+@each $n in (1, 2, 3) {
+  .clamp-#{$n} {
+    @include line-clamp($n);
+  }
+}
+
+// Visibility
+.visually-hidden {
+  @include visually-hidden;
+}
+
+@each $bp, $_ in $breakpoints {
+  // hidden below bp (shown from bp up)
+  .from-#{$bp} {
+    @include mq-below($bp) {
+      display: none !important;
+    }
+  }
+
+  // hidden from bp up
+  .until-#{$bp} {
+    @include mq($bp) {
+      display: none !important;
+    }
+  }
+}

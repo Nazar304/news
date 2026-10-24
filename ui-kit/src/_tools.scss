@@ -1,0 +1,4 @@
+// Tokens + functions + mixins. Outputs no CSS — safe to @use from any app stylesheet:
+//   @use 'pkg:@zeitpunkt/ui-kit/tools' as *;
+@forward 'tokens';
+@forward 'abstracts';

@@ -1,0 +1,107 @@
+@use '../tools' as *;
+
+// Feature list with icons (✓ / —)
+.checklist {
+  @include type(body-sm);
+  display: flex;
+  flex-direction: column;
+  gap: space(xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &__heading {
+    @include label(sm);
+    color: clr(on-surface-variant);
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: space(xs);
+
+    .icon {
+      --icon-size: 1rem;
+      color: clr(primary);
+    }
+  }
+
+  &__off {
+    color: clr(secondary);
+
+    .icon {
+      color: clr(outline) !important;
+    }
+  }
+}
+
+// Ordered list with "01 //" markers
+.numbered {
+  @include type(body-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: numbered;
+  color: clr(secondary);
+
+  > li {
+    display: flex;
+    align-items: flex-start;
+    gap: space(sm);
+    counter-increment: numbered;
+
+    &::before {
+      @include type(label-md);
+      content: counter(numbered, decimal-leading-zero) ' //';
+      flex-shrink: 0;
+      padding-top: 0.25em;
+      color: clr(primary);
+    }
+  }
+
+  // "01." markers, smaller text
+  &--dot {
+    @include type(body-sm);
+    gap: space(xs);
+
+    > li {
+      gap: space(xs);
+
+      &::before {
+        @include type(body-sm);
+        content: counter(numbered, decimal-leading-zero) '.';
+        padding-top: 0;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+// Footer-style link list with hairlines
+.link-list {
+  @include type(body-sm);
+  display: flex;
+  flex-direction: column;
+  gap: space(xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    padding-bottom: space(xs);
+    border-bottom: 1px solid color-mix(in srgb, #{clr(surface-variant)} 40%, transparent);
+  }
+
+  a {
+    display: block;
+    color: clr(on-surface-variant);
+    @include transition(color);
+
+    &:hover {
+      color: clr(primary);
+    }
+  }
+}

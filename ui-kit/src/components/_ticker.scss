@@ -1,0 +1,101 @@
+@use '../tools' as *;
+
+// Breaking-news bulletin bar
+.ticker {
+  @include page-gutter;
+  display: flex;
+  flex-direction: column;
+  gap: space(xs);
+  padding-block: space(xs);
+  background: clr(surface-container-high);
+  color: clr(on-surface);
+
+  @include mq(md) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: space(lg);
+  }
+
+  &__lead {
+    display: flex;
+    align-items: center;
+    gap: space(sm);
+    flex-shrink: 0;
+  }
+
+  &__updated {
+    @include label(sm);
+    letter-spacing: 0.05em;
+    color: clr(secondary);
+  }
+
+  &__viewport {
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, #000 2rem, #000 calc(100% - 2rem), transparent);
+  }
+
+  &__track {
+    @include type(body-sm);
+    display: flex;
+    align-items: center;
+    gap: space(lg);
+    width: max-content;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    white-space: nowrap;
+    color: clr(on-surface-variant);
+  }
+
+  // Continuous scroll; JS duplicates the items once (data-ticker).
+  &--animate &__track {
+    animation: ticker-scroll var(--ticker-duration, 40s) linear infinite;
+  }
+
+  &--animate:hover &__track {
+    animation-play-state: paused;
+  }
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    gap: space(xs);
+
+    & + &::before {
+      content: '•';
+      margin-right: space(lg);
+      color: clr(outline-variant);
+    }
+  }
+
+  &__time {
+    @include label(sm);
+    padding-inline: 0.25rem;
+    background: clr(surface-container);
+    color: clr(primary);
+    font-weight: 700;
+  }
+
+  &__aside {
+    @include label(sm);
+    display: none;
+    align-items: center;
+    gap: space(sm);
+    flex-shrink: 0;
+    color: clr(secondary);
+
+    @include mq(lg) {
+      display: flex;
+    }
+  }
+}
+
+@keyframes ticker-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}

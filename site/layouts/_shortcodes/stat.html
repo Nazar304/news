@@ -1,0 +1,27 @@
+{{- /*
+{{< stat value="74%" eyebrow="Аналітичний зріз // 2024" label="міських рішень…" >}}
+Мережі транспорту: 88
+Зонування земель: 54
+{{< /stat >}}
+*/ -}}
+<div class="stat">
+  <div class="stat__main">
+    {{- with .Get "eyebrow" }}<span class="stat__eyebrow">{{ . }}</span>{{ end }}
+    <div class="stat__value">{{ .Get "value" }}</div>
+    {{- with .Get "label" }}<p class="stat__label">{{ . }}</p>{{ end }}
+  </div>
+  {{- with strings.TrimSpace .Inner }}
+  <div class="stat__aside">
+    {{- range split . "\n" }}
+      {{- $row := split (strings.TrimSpace .) ":" }}
+      {{- if eq (len $row) 2 }}
+        {{- $v := strings.TrimSpace (index $row 1) }}
+    <div class="meter meter--inverse" style="--value: {{ $v }}%">
+      <div class="meter__label"><span>{{ strings.TrimSpace (index $row 0) }}</span><span>{{ $v }}%</span></div>
+      <div class="meter__track"><span class="meter__fill"></span></div>
+    </div>
+      {{- end }}
+    {{- end }}
+  </div>
+  {{- end }}
+</div>

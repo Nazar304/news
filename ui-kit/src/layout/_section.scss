@@ -1,0 +1,77 @@
+@use 'sass:map';
+@use '../tools' as *;
+
+// Full-bleed band with page margins. Backgrounds via modifiers.
+.section {
+  @include page-gutter;
+  padding-block: space(xl);
+
+  &--lg {
+    padding-block: space(lg);
+  }
+
+  &--md {
+    padding-block: space(md);
+  }
+
+  &--sm {
+    padding-block: space(sm);
+  }
+
+  &--flush {
+    padding-block: 0;
+  }
+
+  &--surface {
+    background: clr(surface);
+  }
+
+  &--lowest {
+    background: clr(surface-container-lowest);
+  }
+
+  &--low {
+    background: clr(surface-container-low);
+  }
+
+  &--container {
+    background: clr(surface-container);
+  }
+
+  &--high {
+    background: clr(surface-container-high);
+  }
+
+  &--inverse {
+    background: clr(primary);
+    color: clr(on-primary);
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      color: clr(on-primary);
+    }
+  }
+}
+
+// Centered max-width wrapper (use inside a .section).
+.wrap {
+  width: 100%;
+  max-width: map.get($wraps, default);
+  margin-inline: auto;
+
+  &--narrow {
+    max-width: map.get($wraps, narrow);
+  }
+
+  &--measure {
+    max-width: var(--measure);
+  }
+}
+
+// Main content offset under the fixed masthead.
+.page-main {
+  padding-top: var(--header-h);
+  min-height: 100vh;
+}

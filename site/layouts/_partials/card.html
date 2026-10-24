@@ -1,0 +1,26 @@
+{{- /* Article teaser card (4-col grid). Context: article page. */ -}}
+{{- $cat := partial "term.html" (dict "page" . "tax" "categories") }}
+{{- $author := partial "term.html" (dict "page" . "tax" "authors") }}
+<article class="card is-zoomable">
+  <div class="card__body" style="gap: var(--space-md)">
+    <div class="media media--4x3">
+      {{- with .Resources.GetMatch "cover.*" }}
+        {{- $img := .Fill "800x600 Center webp q75" }}
+      <img src="{{ $img.RelPermalink }}" width="{{ $img.Width }}" height="{{ $img.Height }}" alt="" loading="lazy">
+      {{- end }}
+      {{- with .Params.kicker }}<span class="badge media__badge">{{ . }}</span>{{ end }}
+    </div>
+    <div class="card__body">
+      <div class="meta meta--spread">
+        <span>{{ with $cat }}{{ .LinkTitle }}{{ end }}</span>
+        <span>{{ or .Params.readTime .ReadingTime }} хв читання</span>
+      </div>
+      <h3 class="card__title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      <p class="card__excerpt">{{ .Params.lede }}</p>
+    </div>
+  </div>
+  <footer class="card__footer">
+    <span class="card__author">{{ with $author }}{{ .LinkTitle }}{{ end }}</span>
+    <span>№ {{ .Params.issue }}</span>
+  </footer>
+</article>

@@ -1,0 +1,38 @@
+{{ define "main" }}
+{{- $pages := .Pages.ByDate.Reverse }}
+{{- $pager := .Paginate $pages }}
+
+{{- if eq .Data.Plural "authors" }}
+  {{- /* Author profile */}}
+<section class="section">
+  <div class="grid grid--12 grid--align-center">
+    <div class="span-md-3">
+      {{- with .Resources.GetMatch "photo.*" }}
+        {{- $p := .Fill "480x600 Center webp q80" }}
+      <div class="media media--4x5"><img src="{{ $p.RelPermalink }}" width="{{ $p.Width }}" height="{{ $p.Height }}" alt="{{ $.Title }}"></div>
+      {{- end }}
+    </div>
+    <div class="span-md-9 stack">
+      <span class="eyebrow eyebrow--dot eyebrow--md">{{ .Params.role }}</span>
+      <h1 class="headline" style="margin: 0">{{ .Title }}</h1>
+      <p class="lede">{{ .Params.bio }}</p>
+      <div class="cluster cluster--lg meta">
+        {{- with .Params.city }}<div class="meta__pair"><span class="meta__key">Бюро</span><span class="meta__value">{{ . }}</span></div>{{ end }}
+        <div class="meta__pair"><span class="meta__key">Публікацій</span><span class="meta__value">{{ len $pages }}</span></div>
+        {{- with .Params.email }}<div class="meta__pair"><span class="meta__key">Контакт</span><a class="meta__value" href="mailto:{{ . }}">{{ upper . }}</a></div>{{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+{{- else }}
+  {{- partial "archive-head.html" (dict
+    "page" .
+    "pages" $pages
+    "eyebrow" (cond (eq .Data.Plural "tags") "Тег" "Рубрика")
+    "title" .Title
+    "lede" .Params.lede
+  ) }}
+{{- end }}
+
+{{- partial "catalog.html" (dict "pages" $pager.Pages "paginator" $pager) }}
+{{ end }}

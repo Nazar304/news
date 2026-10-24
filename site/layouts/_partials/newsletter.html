@@ -1,0 +1,18 @@
+<section class="cta-strip" id="newsletter">
+  <div class="grid grid--12 grid--align-center">
+    <div class="span-lg-7 stack stack--sm">
+      <div class="meta"><span>Щоденний бриф // 08:00 ранку</span><span>•</span><span>Час читання: 3 хвилини</span></div>
+      <h2 class="cta-strip__title">Ранковий дайджест без спаму</h2>
+      <p class="cta-strip__text">Тільки перевірені факти, очищені від риторичного шуму, клікбейту та рекламних включень. Прямо у вашу поштову скриньку перед відкриттям бірж.</p>
+    </div>
+    <div class="span-lg-5">
+      {{- /* Static site: plug a form backend (Buttondown, Formspree…) into action="" */}}
+      <form class="inline-form inline-form--lg" action="#" method="post">
+        <label class="visually-hidden" for="newsletter-email">Електронна адреса</label>
+        <input class="input input--lg" id="newsletter-email" name="email" type="email" placeholder="vash.email@domain.com" autocomplete="email" required>
+        <button class="btn btn--inverse btn--lg" type="submit">Підписатися</button>
+      </form>
+      <div class="meta meta--spread mt-xs"><span>Шифрування PGP доступне</span><span>Скасування в 1 клік</span></div>
+    </div>
+  </div>
+</section>

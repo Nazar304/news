@@ -1,0 +1,41 @@
+{
+  "name": "@zeitpunkt/ui-kit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ZEITPUNKT UI kit — International Editorial design system in SCSS",
+  "type": "module",
+  "style": "dist/ui-kit.css",
+  "sass": "src/index.scss",
+  "exports": {
+    ".": {
+      "sass": "./src/index.scss",
+      "default": "./dist/ui-kit.css"
+    },
+    "./tools": {
+      "sass": "./src/_tools.scss"
+    },
+    "./css": "./dist/ui-kit.css",
+    "./css/min": "./dist/ui-kit.min.css",
+    "./js": "./js/index.js",
+    "./src/*": "./src/*",
+    "./fonts/*": "./fonts/*"
+  },
+  "files": [
+    "src",
+    "js",
+    "fonts",
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite playground",
+    "build": "npm run build:css && npm run build:min",
+    "build:css": "sass src/index.scss dist/ui-kit.css --no-source-map",
+    "build:min": "sass src/index.scss dist/ui-kit.min.css --style=compressed --no-source-map",
+    "build:playground": "vite build playground --outDir ../dist/playground --emptyOutDir",
+    "watch": "sass --watch src/index.scss dist/ui-kit.css"
+  },
+  "devDependencies": {
+    "sass": "^1.106.1",
+    "vite": "^8.3.5"
+  }
+}

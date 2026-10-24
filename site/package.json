@@ -1,0 +1,20 @@
+{
+  "name": "@zeitpunkt/site",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ZEITPUNKT static site (Hugo) on top of @zeitpunkt/ui-kit",
+  "scripts": {
+    "css": "sass --pkg-importer=node --no-source-map styles/main.scss assets/css/main.css",
+    "css:watch": "sass --pkg-importer=node --no-source-map --watch styles/main.scss assets/css/main.css",
+    "dev": "npm run css && concurrently -k -n css,hugo -c gray,blue \"npm:css:watch\" \"hugo server --disableFastRender --port 1313\"",
+    "build": "npm run css && hugo --gc --minify"
+  },
+  "dependencies": {
+    "@zeitpunkt/ui-kit": "*"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6",
+    "hugo-extended": "^0.168.0",
+    "sass": "^1.106.1"
+  }
+}

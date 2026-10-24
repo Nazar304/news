@@ -1,0 +1,216 @@
+@use '../tools' as *;
+
+// Article teaser.
+// <article class="card is-zoomable">
+//   <div class="media media--4x3">…</div>
+//   <div class="card__body"> meta / title / excerpt </div>
+//   <footer class="card__footer">…</footer>
+// </article>
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: space(md);
+  padding: space(md);
+  background: clr(surface-container-lowest);
+  color: clr(on-surface);
+  @include transition(background-color);
+
+  &:hover {
+    background: clr(surface);
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: space(xs);
+  }
+
+  &__title {
+    @include type(headline-sm);
+    font-weight: 700;
+    line-height: 1.25;
+    color: clr(primary);
+    @include transition(color);
+
+    a::after {
+      // whole card clickable
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+  }
+
+  &__excerpt {
+    @include type(body-sm);
+    line-height: 1.6;
+    color: clr(on-surface-variant);
+  }
+
+  &__footer {
+    @include label(sm);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: space(sm);
+    margin-top: auto;
+    padding-top: space(xs);
+    color: clr(secondary);
+  }
+
+  &__author {
+    color: clr(primary);
+    font-weight: 700;
+  }
+
+  &--clamp &__excerpt {
+    @include line-clamp(2);
+  }
+
+  // Hover darkens title to secondary (sidebar lists, index)
+  &--link:hover &__title {
+    color: clr(secondary);
+  }
+
+  &--underline:hover &__title {
+    text-decoration: underline;
+  }
+
+  // Sidebar priority item
+  &--compact {
+    gap: space(sm);
+    justify-content: space-between;
+
+    &:hover {
+      background: clr(surface-container-low);
+    }
+  }
+
+  // Muted card (related, team)
+  &--muted {
+    background: clr(surface-container-low);
+
+    &:hover {
+      background: clr(surface-container);
+    }
+  }
+
+  // Flush media (team profile): no padding around image
+  &--flush {
+    padding: 0;
+    gap: 0;
+
+    .card__content {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+      gap: space(sm);
+      padding: space(md);
+    }
+  }
+
+  // Main lead story
+  &--lead {
+    justify-content: space-between;
+
+    @include mq(lg) {
+      padding: space(lg);
+    }
+
+    .card__title {
+      @include type(display-lg);
+      max-width: 56rem;
+    }
+
+    .card__excerpt {
+      @include type(body-lg);
+      line-height: 1.625;
+      max-width: 48rem;
+      padding-top: space(xs);
+      color: clr(secondary);
+    }
+
+    .card__footer {
+      @include label(md);
+      flex-wrap: wrap;
+      padding-top: space(sm);
+      color: clr(on-surface-variant);
+    }
+  }
+
+  // Numbered principle (manifesto)
+  &--tenet {
+    gap: space(sm);
+    padding: space(lg);
+    background: clr(surface);
+
+    .card__title {
+      @include type(headline-md);
+      text-transform: uppercase;
+    }
+
+    .card__excerpt {
+      @include type(body-md);
+      color: clr(secondary);
+    }
+
+    .card__footer {
+      color: clr(on-surface);
+      letter-spacing: 0.05em;
+    }
+  }
+
+  &__index {
+    @include type(display-lg);
+    font-weight: 900;
+    color: clr(surface-dim);
+  }
+}
+
+// Black typographic block in place of an image (editor's column)
+.quote-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  aspect-ratio: 4 / 3;
+  padding: space(md);
+  background: clr(primary);
+  color: clr(on-primary);
+
+  &__eyebrow {
+    @include label(sm);
+    color: clr(surface-variant);
+  }
+
+  &__text {
+    @include type(headline-lg);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    color: clr(surface);
+  }
+
+  &__foot {
+    @include label(sm);
+    color: clr(outline-variant);
+  }
+}
+
+// Mini chart tile in place of an image
+.chart-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: space(sm);
+  background: clr(surface-container-high);
+
+  svg {
+    width: 100%;
+    height: 6rem;
+    color: clr(primary);
+  }
+}

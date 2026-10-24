@@ -1,0 +1,158 @@
+@use '../tools' as *;
+
+// Image frame with fixed ratio, monochrome treatment and optional overlays.
+// <figure class="media media--16x9"><img …><figcaption class="media__caption">…</figcaption></figure>
+.media {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  background: clr(surface-container-high);
+
+  > img,
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    @include mono-image;
+    @include transition(transform);
+    transition-duration: 500ms;
+  }
+
+  &--16x9 {
+    aspect-ratio: 16 / 9;
+  }
+
+  &--4x3 {
+    aspect-ratio: 4 / 3;
+  }
+
+  &--4x5 {
+    aspect-ratio: 4 / 5;
+  }
+
+  &--square {
+    aspect-ratio: 1;
+  }
+
+  &--hero {
+    height: 23.75rem;
+
+    @include mq(sm) {
+      height: 32.5rem;
+    }
+
+    @include mq(lg) {
+      height: 40rem;
+    }
+  }
+
+  &--dark {
+    background: clr(primary);
+  }
+
+  // Zoom image when the parent card is hovered
+  .is-zoomable:hover & > img,
+  &.is-zoomable:hover > img {
+    transform: scale(1.05);
+  }
+
+  // Black caption bar pinned to the bottom
+  &__caption {
+    @include label(sm);
+    position: absolute;
+    inset: auto 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: space(xs) space(sm);
+    padding: space(xs) space(md);
+    background: color-mix(in srgb, #{clr(primary)} 90%, transparent);
+    color: clr(on-primary);
+  }
+
+  // Caption over a gradient (lead image)
+  &__overlay {
+    position: absolute;
+    inset: auto 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: space(sm);
+    padding: space(md);
+    color: clr(on-primary);
+    background: linear-gradient(to top, color-mix(in srgb, #{clr(primary)} 80%, transparent), transparent);
+    padding-top: space(xl);
+
+    @include mq(sm) {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: space(xl) space(lg) space(lg);
+    }
+  }
+
+  &__overlay-text {
+    @include type(body-sm);
+    max-width: 42rem;
+    color: clr(surface-container-high);
+  }
+
+  // Badge in a corner
+  &__badge {
+    position: absolute;
+    top: space(xs);
+    left: space(xs);
+
+    &--right {
+      left: auto;
+      right: space(xs);
+    }
+
+    &--bottom {
+      top: auto;
+      bottom: space(sm);
+      left: space(sm);
+    }
+  }
+}
+
+// Figure with caption below (in-text images)
+.figure {
+  margin: 0;
+  padding: space(xs);
+  background: clr(surface-container-low);
+
+  img {
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
+    @include mono-image;
+  }
+
+  figcaption {
+    @include label(sm);
+    padding: space(xs);
+    color: clr(on-surface-variant);
+    letter-spacing: 0.05em;
+  }
+
+  // Caption as a black bar under the image
+  &--bar {
+    padding: 0;
+    background: none;
+
+    img {
+      height: 20rem;
+    }
+
+    figcaption {
+      display: flex;
+      justify-content: space-between;
+      gap: space(sm);
+      padding: space(sm);
+      background: clr(primary);
+      color: clr(on-primary);
+      letter-spacing: 0.1em;
+    }
+  }
+}
